@@ -229,7 +229,7 @@ Ya los tenemos establecidos en el componente, ¡así que toca mostrar el listado
   );
 ```
 
-> 💡**¡Recuerda!** El método [`map()`](https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/Array/map) recorre un array y devuelve un nuevo array con los resultados de la función que recibe por parámetro, que es aplicada a cada elemento del array. Es muy común su uso en React para renderizar componentes en función de un listado.
+> 💡 **¡Recuerda!** El método [`map()`](https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/Array/map) recorre un array y devuelve un nuevo array con los resultados de la función que recibe por parámetro, que es aplicada a cada elemento del array. Es muy común su uso en React para renderizar componentes en función de un listado.
 
 Ahora vuelve al navegador y comprueba que todo funciona correctamente. :crossed_fingers:
 
@@ -331,9 +331,17 @@ Ahora volvemos al navegador y vemos que sigue funcionando correctamente:
 
 [CAPTURA]
 
-### 6. Añadiendo elementos
+### 6. Añadir elementos
 
 Vale, ya podemos ver los elementos, pero, ¿y si queremos añadir uno nuevo? En este paso vamos a añadir esa funcionalidad.
+
+
+
+### 7. Marcar elementos como completados
+
+
+
+### 8. Eliminar elementos
 
 
 
