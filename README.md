@@ -1,10 +1,10 @@
-# Taller React: aplicación To-do
+# ⚛︎ Taller React: aplicación To-do
 
 Este repo lo vamos a utilizar como segunda parte de la charla [<devs> Taller de React: de 0 a ninja </devs>](https://www.meetup.com/es-ES/WordPress-Madrid/events/263751142/), haciendo ahora un ejercicio práctico.
 
-> Los slides de la primera parte [los puedes ver aquí](#).
+> 👉 Los slides de la primera parte [los puedes ver aquí](#).
 
-En la primera parte hemos visto qué es React, hemos echado un vistazo a su ecosistema y repasado cuáles son los elementos más importantes: componentes, estado y props. Si has aguantado hasta aquí, ¡ahora viene lo mejor! Vamos a poner todo esto en práctica para que empieces tu camino a ser ninja.
+En la primera parte hemos visto qué es React, hemos echado un vistazo a su ecosistema y repasado cuáles son los elementos más importantes: componentes, estado y props. Si has aguantado hasta aquí, ¡ahora viene lo mejor! Vamos a poner todo esto en práctica para que empieces tu camino a ser ninja. 😎
 
 ![Ninja](https://media.giphy.com/media/ErdfMetILIMko/source.gif)
 
@@ -29,7 +29,7 @@ El primer paso es sencillo: ¡hay que configurar nuestro entorno de trabajo!
 
 [AÑADIR CAPTURA]
 
-It works! 😁 ¡Seguimos!
+_It works!_ 😁 ¡Seguimos!
 
 > ⚠️ **¿Tienes algún problema con Git/Node y no puedes seguir estos pasos?** ¡No te preocupes! Hemos creado este repo de Codesandbox [❗️AÑADIR ENLACE] para que no te pierdas nada del taller. Así puedes seguirlo, y cuando termine vemos cómo podemos arreglar esos problemas. 😉
 
@@ -68,7 +68,7 @@ Además, en la raíz también tenemos los siguientes archivos:
 
 - `.gitignore`: donde se configuran los archivos que `git` va a ignorar, es decir, los que no se van a subir. Un ejemplo de archivos que se deben subir es aquel donde tengas _API keys_.
 
-  > ⚠️ **¡CUIDADO CON SUBIR `NODE_MODULES!`** Esta carpeta suele ser muy pesada e innecesaria la subida, por lo que se suele añadir al `.gitignore` para que no se suba.
+  > ⚠️ **¡CUIDADO CON SUBIR `NODE_MODULES!`** Esta carpeta suele ser muy pesada e innecesaria la subida, por lo que se suele añadir al `.gitignore` para que no se suba. Por defecto `create-react-app`ya lo añade, pero debes tenerlo en cuenta para otros proyectos en los que utilices NPM.
 
 Otro archivo clave en este proyecto es el `index.js` que está dentro de la carpeta `src`, ya que es el punto de entrada de la aplicación. Si lo abrimos veremos que tiene muy pocas líneas:
 
@@ -201,9 +201,15 @@ Vamos a seguir esta sintaxis para establecer el estado `todos` a nuestro compone
 ```js
 function App() {
   const [todos, setTodos] = useState([
-    "Tarea 1", 
-    "Tarea 2", 
-    "Tarea 3"
+    {
+      content: "Tarea 1"
+    }, 
+    {
+      content: "Tarea 2"
+    }, 
+    {
+      content: "Tarea 3"
+    }
   ]);
 
   // ...
@@ -304,9 +310,15 @@ import Todo from './componentes/Todo';
 
 function App() {
   const [todos, setTodos] = useState([
-    "Tarea 1", 
-    "Tarea 2", 
-    "Tarea 3"
+    {
+      content: "Tarea 1"
+    }, 
+    {
+      content: "Tarea 2"
+    }, 
+    {
+      content: "Tarea 3"
+    }
   ]);
 
    return (
@@ -335,29 +347,164 @@ Ahora volvemos al navegador y vemos que sigue funcionando correctamente:
 
 Vale, ya podemos ver los elementos, pero, ¿y si queremos añadir uno nuevo? En este paso vamos a añadir esa funcionalidad.
 
+Y para ello, primero creamos un método en nuestro componente `App` que, dado un valor recibido por parámetro, lo añada al `state` de `todos`.
 
+```js
+const addTodo = text => {
+    const newTodos = [...todos, text ];
+    setTodos(newTodos);
+  };
+```
+
+> 💡 ¿Te ha confundido la parte de `[...todos, text ]`? Es el [`spread operator`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax) (u operador de propagación), una característica de ES6 que, en este caso, lo estamos utilizando para hacer una copia del array `todos` y añadiendo al final el valor de `text`. ¿Por qué tenemos que hacer una copia? En JavaScript, los tipos de datos complejos (arrays y objetos) se pasan por referencia, y no por valor, por lo tenemos que hacerlo para tener una copia de `todos` y asegurarnos de que no modificamos el original. [En este artículo tienes más información sobre las diferencias de valor y referencia](https://codeburst.io/explaining-value-vs-reference-in-javascript-647a975e12a0).
+
+Esta función que hemos creado la utilizará el componente del formulario, así que ahora creamos dicho componente, que será `ItemForm` (`src/components/ItemForm.js`).
+
+Básicamente va a ser un formulario con un único `input`, cuyo valor se guardará en su `state`. Además, para su funcionamiento necesitaremos un método que gestione el envío de dicho formulario (lo llamaremos `handleSubmit()`), y que llame a su vez al método `addItem()`, que recibirá del componente `App` para añadir este elemento a su `state`. ¿Te has quedado así 🤯? ¡No te preocupes! Puede ser muy confuso de explicar, pero cuando lo veas en práctica seguro que lo entiendes mejor. 😉
+
+> 💡 **Recuerda** que puedes pasar todo tipo de dato mediante `props`. Puedes compararlo a los argumentos de una función, a la que le puedes pasar incluso otra función que quieres que se ejecute en ella.
+
+Siguiendo lo que hemos comentado, cuando ya tengas creado el archivo del componente, primero establece su estado. Recuerda, será el valor del campo del formulario.
+
+```js
+const [value, setValue] = useState("");
+```
+
+A continuación, añade el contenido que renderizará el componente:
+
+```js
+return (
+    <form action="javascript:;" onSubmit={handleSubmit}>
+      <input
+        type="text"
+        className="input"
+        value={value}
+        onChange={e => setValue(e.target.value)}
+      />
+    </form>
+  );
+```
+
+Vamos a destacar varias cosas del código que acabas de añadir:
+
+1. Con `onSubmit={handleSubmit}`, establecemos que, cuando se envíe el formulario, se ejecute la función `handleSubmit`. Esta función todavía no la hemos creado, lo haremos en el siguiente paso.
+2. El `value` del `input` está asociado a su estado, con el mismo nombre.
+3. Cada vez que cambie el valor del formulario (`onChange`), se llamará al método `setValue` para actualizar el `state` con el nuevo valor. Si no pusiéramos esta línea, el `input` no cambiaría cuando escribamos en él. ¡Pruébalo!
+
+Y ahora sí, por último, vamos a establecer el `handleSubmit`:
+
+```js
+const handleSubmit = e => {
+  if (!value) return;
+  
+  props.addTodo(value);
+  setValue("");
+};
+```
+
+Con este código, primero comprobamos si el `state` tiene contenido, es decir, si se ha introducido algo. Si es así, lo añadimos al listado mediante la función `addTodo` que recibe por `props`.
+
+¡Y ya estaría! Ahora solo te queda comprobar que funciona. 😬
 
 ### 7. Marcar elementos como completados
 
+Otra de las características esenciales de una aplicación to-do es poder marcar los elementos como completados, y eso es lo que vamos a hacer ahora.
 
+Piensa, ¿cómo podrías establecer si el elemento ha sido completado o no a través de su componente?  👉 ¡Con su estado!
 
-### 8. Eliminar elementos
+Si revisas de nuevo la estructura del `state` del componente `App`, verás que cada ítem tiene solo un dato: `content`. Ahora necesitamos que contenga otra propiedad más, `isCompleted`, que será la que indique si la tarea está o no completada. Por eso, vamos a añadirla, con el valor `false` por defecto:
 
+```js
+const [todos, setTodos] = useState([
+    {
+      content: "Tarea 1",
+      isCompleted: false
+    }, 
+    {
+      content: "Tarea 2",
+      isCompleted: false
+    }, 
+    {
+      content: "Tarea 3",
+      isCompleted: false
+    }
+  ]);
+```
 
+A continuación tendremos que escribir la función que se encargará de cambiar ese estado (a `true`si está en `false`, y viceversa), teniendo en cuenta que para ello deberá recibir la posición del array a la que se le quiere cambiar este valor.
 
-## ¡Bonus! Vamos a hacer un build
+```js
+const completeItem = index => {
+     const newItems = [...items];
+     newItems[index].isCompleted = !newItems[index].isCompleted;
+     setItem(newItems);
+   };
+```
 
+El funcionamiento de la función es sencillo: clonamos el array, accedemos a la posición en función del índice que recibimos por parámetro y cambiamos su propiedad `isCompleted` por su opuesto (con el símbolo `!` devolvemos el valor contrario).
 
+> ⚠️ Recuerda que tienes que hacer una copia del array para no modificar el original, como en el paso anterior.
 
-## ¡Ya está! ¿Y ahora qué?
+Esta función que hemos creado se la vamos a sar al componente `Item` para que pueda utilizarla:
 
-¡Enhorabuena! ¡Has completado el taller! 🎉
+```js
+<Item
+  key={index}
+  index={index}
+  content={content}
+  completeItem={completeItem}
+/>
+```
+
+Ahora vamos al componente `Item` para establecer que, cada vez que se pulse sobre él, se ejecute dicha función, pasando el `index` por parámetro:
+
+```js
+import React from 'react';
+
+const Todo = props => {
+	return (<div className="Todo" onClick={() => props.completeItem(props.index)}>{props.content}</div>);
+}
+
+export default Todo;
+```
+
+Vale, ya tenemos configurado el `state` y vinculada la función que se encarga de modificarlo. Pero, ¿cómo vamos a saber si está completada o no? Para ello, tenemos definida en CSS la clase `is-completes`, que define esos estilos, por lo que, cuando `isCompleted` sea `true`, ese componente deberá llevar esa clase:
+
+```
+className=`Todo ${props.isCompleted && 'is-completed'}`
+```
+
+> 💡 Hemos usado otra funcionalidad de ES6, los `backticks`. Son `template strings`, es decir, plantillas de cadenas de texto a través de las cuales podemos concatenar texto con variables o expresiones con una sintaxis más fácil de leer. [Aquí tienes más información](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals).
+
+### ✳️ ¡Bonus! 9. Eliminar elementos
+
+Esto ya son deberes para casa. 😉
+
+Otra funcionalidad que debería tener la aplicación es la que permita eliminar una tarea. ¿Cómo lo harías? ¡Esto te lo dejamos para que lo pienses!
+
+> 💡 Eliminar un elemento de la lista no es muy diferente a añadir uno. Primero, podrías añadir un botón al lado de cada `Item` para que, al pulsarlo, se ejecuta una función que modifique el `state` de `App` para eliminar ese elemento del array.
+
+### ✳️ ¡Bonus! 10. Preparando tu aplicación para subir al servidor
+
+Ahora que ya tienes la aplicación lista, llega el momento de prepararla para subirla al servidor.
+
+Para ello, tienes que crear un `build` de producción, que contendrá los archivos estáticos de tu aplicación, optimizados y compatibles para que puedas subirlos a tu servidor. 😄
+
+Tan solo tienes que ejecutar el comando `npm run build` y, una vez terminado, tendrás los archivos listos en la carpeta `dist` de tu respositorio. ¡Estos serán los que subirás a tu servidor!
+
+> 💡 Si no tienes un servidor para probarlo, puedes usar [GitHub Pages](https://pages.github.com/), pero recuerda que los archivos estarán en la carpeta `dist`. También puedes usar [Heroku](https://www.heroku.com/) siguiendo [este tutorial](https://medium.com/jeremy-gottfrieds-tech-blog/tutorial-how-to-deploy-a-production-react-app-to-heroku-c4831dfcfa08), aunque el proceso es un poco más complejo.
+
+> 💡 Si quieres más información sobre el proceso de `build` puedes visitar [este enlace de la documentación](https://create-react-app.dev/docs/production-build).
+
+## ¡Enhorabuena! ¡Has completado el taller! 🎉
 
 Esperamos que hayas aprendido mucho y te hayas quedado con ganas de seguir trasteando. 😉 ¡Eso es lo importante!
 
 Ahora tienes un mundo abierto de posibilidades: puedes tratar de mejorar tu aplicación, añadir nuevas funcionalidades, incorporar un backend, seguir estudiando, practicando, ¡lo que tú quieras!
 
-Si quieres seguir ampliando información, en el siguiente apartado te hemos dejado algunos enlaces útiles. ¡Pero tómatelo con calma!
+Si quieres seguir ampliando información, en los siguientes apartados te hemos dejado algunos enlaces útiles. ¡Pero tómatelo con calma! ¡Ahora toca celebrarlo! 🍻
+
+![Cerveza](https://media.giphy.com/media/h8NdYZJGH1ZRe/giphy.gif)
 
 #### Cosas que puedes añadir/mejorar de la aplicación
 
@@ -375,3 +522,9 @@ Te dejamos algunas ideas para que sigas practicando:
 #### Recursos
 
 // Añadir react DevTools, plugin de snippets para visual studio, newsletter semanal...
+
+
+
+
+
+// TODO: añadir placeholder al form, info que diga "pulsa sobre cada tarea para marcarla como completada!" con un emoji
