@@ -135,8 +135,8 @@ Esto ya te va resultando familiar, ¿verdad? 😄
 > ```js
 > return (
 > 	<div>
->     <h1>Elemento</h1>
->     <h2>Elemento</h2>
+>  <h1>Elemento</h1>
+>  <h2>Elemento</h2>
 > 	</div>
 > );
 > ```
@@ -231,19 +231,13 @@ Ya los tenemos establecidos en el componente, ¡así que toca mostrar el listado
 ```js
  return (
     <div className="App">
-      <div className="todo-list">
+      <ul className="TodoList">
         {items.map((item, index) => (
-          <div className="App">
-      			<ul className="TodoList">
-        			{items.map((item, index) => (
-          			<li key={index} className="TodoItem">
-            			{item.content}
-          			</li>
-        			))}
-      			</ul>
-    			</div>
+          <li key={index} className="TodoItem">
+            {item.content}
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   );
 ```
@@ -409,7 +403,6 @@ const handleSubmit = () => {
   props.addItem(value);
   setValue("");
 };
-
 ```
 
 Con este código, primero comprobamos si el `state` tiene contenido, es decir, si se ha introducido algo. Si es así, lo añadimos al listado mediante la función `addTodo` que recibe por `props`.
@@ -454,7 +447,7 @@ const [items, setItems] = useState([
 
 ```
 
-A continuación tendremos que escribir la función que se encargará de cambiar ese estado (a `true`si está en `false`, y viceversa), teniendo en cuenta que para ello deberá recibir la posición del array a la que se le quiere cambiar este valor.
+A continuación tendremos que escribir la función que se encargará de cambiar ese estado (a `true`si está en `false`, y viceversa), teniendo en cuenta que para ello deberá recibir la posición del array a la que se le quiere cambiar este valor. // ACTUALIZAR ADDITEM
 
 ```js
 const completeItem = index => {
@@ -477,7 +470,7 @@ Esta función que hemos creado se la vamos a sar al componente `Item` para que p
   index={index}
   content={item.content}
   completeItem={completeItem}
-	isComplete={item.isComplete}
+	isCompleted={item.isCompleted}
 />
 
 ```
@@ -499,7 +492,7 @@ Vale, ya tenemos configurado el `state` y vinculada la función que se encarga d
 // TODO: comprobar que esto no añade la clase false
 
 ```js
-className={`Todo ${props.isCompleted && 'is-completed'}`}
+className={`Todo ${props.isCompleted ? "is-completed" : ""}`}
 
 ```
 
