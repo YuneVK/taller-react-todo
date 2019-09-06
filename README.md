@@ -470,13 +470,39 @@ export default Todo;
 
 Vale, ya tenemos configurado el `state` y vinculada la función que se encarga de modificarlo. Pero, ¿cómo vamos a saber si está completada o no? Para ello, tenemos definida en CSS la clase `is-completes`, que define esos estilos, por lo que, cuando `isCompleted` sea `true`, ese componente deberá llevar esa clase:
 
+// TODO: comprobar que esto no añade la clase false
+
 ```
 className=`Todo ${props.isCompleted && 'is-completed'}`
 ```
 
-> 💡 Hemos usado otra funcionalidad de ES6, los `backticks`. Son `template strings`, es decir, plantillas de cadenas de texto a través de las cuales podemos concatenar texto con variables o expresiones con una sintaxis más fácil de leer. [Aquí tienes más información](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals).
+> 💡 Hemos usado otra funcionalidad de ES6, los `backticks`. Son `template strings`, es decir, plantillas de cadenas de texto a través de las cuales podemos concatenar texto con variables o expresiones con una sintaxis más fácil de leer. Aquí tienes un ejemplo
+>
+> ```js
+> // Forma clásica
+> const foo = "Hola " + name + "!";
+> 
+> // Con backticks
+> const bar = `Hola ${name}!`
+> ```
+>
+> Mucho mejor la segunda forma, ¿verdad? 😜 [Aquí tienes más información](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals).
 
-### ✳️ ¡Bonus! 9. Eliminar elementos
+
+
+## ¡Enhorabuena! ¡Has completado el taller! 🎉
+
+Esperamos que hayas aprendido mucho y te hayas quedado con ganas de seguir trasteando. 😉 ¡Eso es lo importante!
+
+Ahora tienes un mundo abierto de posibilidades: puedes tratar de mejorar tu aplicación, añadir nuevas funcionalidades, incorporar un backend, seguir estudiando, practicando, ¡lo que tú quieras!
+
+Si quieres seguir ampliando información, en los siguientes apartados te hemos dejado algunas ideas y recursos para que puedas seguir practicando. ¡Pero tómatelo con calma! ¡Ahora toca celebrarlo! 🍻
+
+![Cerveza](https://media.giphy.com/media/h8NdYZJGH1ZRe/giphy.gif)
+
+### ✳️ ¡Bonus! ✳️
+
+#### 1. Eliminar elementos
 
 Esto ya son deberes para casa. 😉
 
@@ -484,7 +510,7 @@ Otra funcionalidad que debería tener la aplicación es la que permita eliminar 
 
 > 💡 Eliminar un elemento de la lista no es muy diferente a añadir uno. Primero, podrías añadir un botón al lado de cada `Item` para que, al pulsarlo, se ejecuta una función que modifique el `state` de `App` para eliminar ese elemento del array.
 
-### ✳️ ¡Bonus! 10. Preparando tu aplicación para subir al servidor
+#### 2. Preparando tu aplicación para subir al servidor
 
 Ahora que ya tienes la aplicación lista, llega el momento de prepararla para subirla al servidor.
 
@@ -496,15 +522,7 @@ Tan solo tienes que ejecutar el comando `npm run build` y, una vez terminado, te
 
 > 💡 Si quieres más información sobre el proceso de `build` puedes visitar [este enlace de la documentación](https://create-react-app.dev/docs/production-build).
 
-## ¡Enhorabuena! ¡Has completado el taller! 🎉
 
-Esperamos que hayas aprendido mucho y te hayas quedado con ganas de seguir trasteando. 😉 ¡Eso es lo importante!
-
-Ahora tienes un mundo abierto de posibilidades: puedes tratar de mejorar tu aplicación, añadir nuevas funcionalidades, incorporar un backend, seguir estudiando, practicando, ¡lo que tú quieras!
-
-Si quieres seguir ampliando información, en los siguientes apartados te hemos dejado algunos enlaces útiles. ¡Pero tómatelo con calma! ¡Ahora toca celebrarlo! 🍻
-
-![Cerveza](https://media.giphy.com/media/h8NdYZJGH1ZRe/giphy.gif)
 
 #### Cosas que puedes añadir/mejorar de la aplicación
 
