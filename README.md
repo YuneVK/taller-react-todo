@@ -12,7 +12,7 @@ En la primera parte hemos visto qué es React, hemos echado un vistazo a su ecos
 
 
 
-> 💡 Si en algún momento te atascas y no sabes cómo continuar, ¡no dudes en preguntarnos! Aunque te vamos a dejar una pista 😏, en la rama `proyecto` podrás ver el código del ejercicio (recuerda que puedes cambiar de rama con el comando `git checkout <nombre>`). Puedes tenerlo como referencia, ¡pero recuerda que como se aprende de verdad es peleándote con el código!
+> 💡 Si en algún momento te atascas y no sabes cómo continuar, ¡no dudes en preguntarnos! Aunque te vamos a dejar una pista 😏, en la rama `solucion` podrás ver el código del ejercicio (recuerda que puedes cambiar de rama con el comando `git checkout <nombre>`). Puedes tenerlo como referencia, ¡pero recuerda que como se aprende de verdad es peleándote con el código!
 
 ## Creando nuestra aplicación
 
@@ -35,13 +35,11 @@ _It works!_ 😁 ¡Seguimos!
 
 ### 2. Destripando la estructura del proyecto
 
-En este paso vamos a ver mientras la estructura del proyecto generado:
+En este paso vamos a ver mientras la estructura del proyecto generado (los archivos que no hemos incluido los vamos a ignorar hoy 🤫):
 
 ```
-MyWebApp/
-  README.md
+taller-react-todo/
   node_modules/
-  package.json
   public/
     index.html
     favicon.ico
@@ -52,6 +50,8 @@ MyWebApp/
     index.css
     index.js
     logo.svg
+  package.json
+  README.md
 ```
 
 Tenemos tres carpetas: `node_modules`, `src` y `public`.
@@ -75,39 +75,43 @@ Otro archivo clave en este proyecto es el `index.js` que está dentro de la carp
 ```js
 import React from 'react';
 import ReactDOM from 'react-dom';
+import './index.css';
 import App from './App';
+import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(
-  <App />,
-  document.getElementById('root')
-);
+ReactDOM.render(<App />, document.getElementById('root'));
 ```
 
 Pero son claves para su funcionamiento. Como hablamos antes, lo primero es importar `React` y todos sus paquetes necesarios (`react-dom`), además del componente principal que vamos a utilizar, `App`.
 
-A través del método `ReactDOM.render` renderizamos el compoente `App` dentro del elemento del DOM que tiene como ID `root` (una pista, si vamos a `public/index.html` veremos ese elemento).
+A través del método `ReactDOM.render` renderizamos el componente `App` dentro del elemento del DOM que tiene como ID `root` (una pista, si vamos a `public/index.html` veremos ese elemento).
 
 Si vamos al componente App (`src/App.js`) veremos el siguiente contenido:
 
 ```js
-import React, { Component } from 'react';
+import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Bienvenido a React</h2>
-        </div>
-          <p className="App-intro">
-            Lista de usuarios
-          </p>
-      </div>
-    );
-  }
+function App() {
+  return (
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/App.js</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
+    </div>
+  );
 }
 
 export default App;
@@ -121,8 +125,8 @@ Esto ya te va resultando familiar, ¿verdad? 😄
 >
 > ```js
 > return (
->   <h1>Elemento</h1>
->   <h2>Elemento</h2>
+> <h1>Elemento</h1>
+> <h2>Elemento</h2>
 > );
 > ```
 >
@@ -131,9 +135,9 @@ Esto ya te va resultando familiar, ¿verdad? 😄
 > ```js
 > return (
 > 	<div>
->   	<h1>Elemento</h1>
->   	<h2>Elemento</h2>
->   </div>
+>     <h1>Elemento</h1>
+>     <h2>Elemento</h2>
+> 	</div>
 > );
 > ```
 >
@@ -153,7 +157,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        // Aquí es donde vamos a añadir el código de nuestra aplicación
+        {/* El código de la app irá aquí */}
       </div>
     );
   }
@@ -196,11 +200,11 @@ function Componente() {
 }
 ```
 
-Vamos a seguir esta sintaxis para establecer el estado `todos` a nuestro componente `App`:
+Vamos a seguir esta sintaxis para establecer el estado `items` a nuestro componente `App`:
 
 ```js
 function App() {
-  const [todos, setTodos] = useState([
+  const [items, setItems] = useState([
     {
       content: "Tarea 1"
     }, 
@@ -216,19 +220,28 @@ function App() {
 }
 ```
 
+> ⚠️ Como estás usando la función `useState`, vas a tener que importarla, así que cambia la línea 1 por lo siguiente:
+>
+> ```js
+> import React, { useState } from "react";
+> ```
+
 Ya los tenemos establecidos en el componente, ¡así que toca mostrar el listado! Como `todos` es un array, tendremos que recorrerlo para renderizar un elemento por cada uno. Para ello, establece el método `reader()` de tu componente `App` así:
 
 ```js
  return (
-    <div className="app">
+    <div className="App">
       <div className="todo-list">
-        {todos.map((todo, index) => (
-          <div
-            key={index}
- 						className="todo-item"
-            index={index}
-            todo={todo}
-          />
+        {items.map((item, index) => (
+          <div className="App">
+      			<ul className="TodoList">
+        			{items.map((item, index) => (
+          			<li key={index} className="TodoItem">
+            			{item.content}
+          			</li>
+        			))}
+      			</ul>
+    			</div>
         ))}
       </div>
     </div>
@@ -243,7 +256,7 @@ Ahora vuelve al navegador y comprueba que todo funciona correctamente. :crossed_
 
 Ya vemos el listado, pero es el momento de hacer un pequeño `refactor`, ya que tenemos que pensar en componentes. Por eso, vamos a crear uno que sea el encargado de mostrar un elemento de la lista.
 
-Para ello, crea una carpeta llama `components` dentro de `src` y, dentro de esta carpeta, un archivo `TodoItem.js`, quedando la estructura así:
+Para ello, crea una carpeta llama `components` dentro de `src` y, dentro de esta carpeta, un archivo `Item.js`, quedando la estructura así:
 
 ```
 MyWebApp/
@@ -255,7 +268,7 @@ MyWebApp/
     favicon.ico
   src/
   	components/
-  		Todo.js
+  		Item.js
     App.css
     App.js
     App.test.js
@@ -266,22 +279,22 @@ MyWebApp/
 
 > 💡 Crear una carpeta `components` no es obligatorio, puedes tener todos tus componentes sueltos en `src`, aunque se suelen poner en una carpeta por convenio, para organizar el código. ¡Sigue unas buenas prácticas y tu yo el futuró te lo agradecerá! 🤗
 
-`Todo.js` corresponde al compontente `Todo`, que se utiliará para representar a cada elemento, por lo que recibirá por `props` el contenido.
+`Item.js` corresponde al compontente `Item`, que se utiliará para representar a cada elemento, por lo que recibirá por `props` el contenido.
 
 ```js
-import React from 'react';
+import React from "react";
 
-const Todo = props => {
-	return (<div className="Todo">{props.content}</div>);
-}
+const Item = props => {
+  return <li className="Item">{props.content}</li>;
+};
 
-export default Todo;
+export default Item;
 ```
 
 Ahora tenemos que utilizar este componente en el principal, `App`. Para ello, el primer paso es importarlo:
 
 ```js
-import Todo from './components/Todo'
+import Item from './components/Item'
 ```
 
 Una vez importado, podremos utilizarlo, por lo que volvemos a cambiar el método `render()`:
@@ -323,15 +336,11 @@ function App() {
 
    return (
     <div className="App">
-      <div className="todo-list">
-        {todos.map((content, index) => (
-          <Todo
-            key={index}
-            index={index}
-            content={content}
-          />
+      <ul className="ListItems">
+        {items.map((item, index) => (
+          <Item key={index} index={index} content={item.content} />
         ))}
-      </div>
+      </ul>
     </div>
   );
 }
@@ -350,10 +359,10 @@ Vale, ya podemos ver los elementos, pero, ¿y si queremos añadir uno nuevo? En 
 Y para ello, primero creamos un método en nuestro componente `App` que, dado un valor recibido por parámetro, lo añada al `state` de `todos`.
 
 ```js
-const addTodo = text => {
-    const newTodos = [...todos, text ];
-    setTodos(newTodos);
-  };
+const addItem = content => {
+  const newItems = [...items, { content: content } ];
+  setItems(newItems);
+};
 ```
 
 > 💡 ¿Te ha confundido la parte de `[...todos, text ]`? Es el [`spread operator`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax) (u operador de propagación), una característica de ES6 que, en este caso, lo estamos utilizando para hacer una copia del array `todos` y añadiendo al final el valor de `text`. ¿Por qué tenemos que hacer una copia? En JavaScript, los tipos de datos complejos (arrays y objetos) se pasan por referencia, y no por valor, por lo tenemos que hacerlo para tener una copia de `todos` y asegurarnos de que no modificamos el original. [En este artículo tienes más información sobre las diferencias de valor y referencia](https://codeburst.io/explaining-value-vs-reference-in-javascript-647a975e12a0).
@@ -394,15 +403,28 @@ Vamos a destacar varias cosas del código que acabas de añadir:
 Y ahora sí, por último, vamos a establecer el `handleSubmit`:
 
 ```js
-const handleSubmit = e => {
+const handleSubmit = () => {
   if (!value) return;
   
-  props.addTodo(value);
+  props.addItem(value);
   setValue("");
 };
+
 ```
 
 Con este código, primero comprobamos si el `state` tiene contenido, es decir, si se ha introducido algo. Si es así, lo añadimos al listado mediante la función `addTodo` que recibe por `props`.
+
+Ahora te falta importar dicho componente a `App`:
+
+```js
+import ItemForm from "./components/ItemForm";
+```
+
+Y renderizarlo, pasándole la función `addItem`:
+
+```js
+<ItemForm addItem={addItem} />
+```
 
 ¡Y ya estaría! Ahora solo te queda comprobar que funciona. 😬
 
@@ -415,7 +437,7 @@ Piensa, ¿cómo podrías establecer si el elemento ha sido completado o no a tra
 Si revisas de nuevo la estructura del `state` del componente `App`, verás que cada ítem tiene solo un dato: `content`. Ahora necesitamos que contenga otra propiedad más, `isCompleted`, que será la que indique si la tarea está o no completada. Por eso, vamos a añadirla, con el valor `false` por defecto:
 
 ```js
-const [todos, setTodos] = useState([
+const [items, setItems] = useState([
     {
       content: "Tarea 1",
       isCompleted: false
@@ -429,6 +451,7 @@ const [todos, setTodos] = useState([
       isCompleted: false
     }
   ]);
+
 ```
 
 A continuación tendremos que escribir la función que se encargará de cambiar ese estado (a `true`si está en `false`, y viceversa), teniendo en cuenta que para ello deberá recibir la posición del array a la que se le quiere cambiar este valor.
@@ -437,43 +460,47 @@ A continuación tendremos que escribir la función que se encargará de cambiar 
 const completeItem = index => {
      const newItems = [...items];
      newItems[index].isCompleted = !newItems[index].isCompleted;
-     setItem(newItems);
+     setItems(newItems);
    };
+
 ```
 
 El funcionamiento de la función es sencillo: clonamos el array, accedemos a la posición en función del índice que recibimos por parámetro y cambiamos su propiedad `isCompleted` por su opuesto (con el símbolo `!` devolvemos el valor contrario).
 
 > ⚠️ Recuerda que tienes que hacer una copia del array para no modificar el original, como en el paso anterior.
 
-Esta función que hemos creado se la vamos a sar al componente `Item` para que pueda utilizarla:
+Esta función que hemos creado se la vamos a sar al componente `Item` para que pueda utilizarla, además de la propiedad `isComplete`que luego vamos a utilizar:
 
 ```js
 <Item
   key={index}
   index={index}
-  content={content}
+  content={item.content}
   completeItem={completeItem}
+	isComplete={item.isComplete}
 />
+
 ```
 
 Ahora vamos al componente `Item` para establecer que, cada vez que se pulse sobre él, se ejecute dicha función, pasando el `index` por parámetro:
 
 ```js
-import React from 'react';
-
-const Todo = props => {
-	return (<div className="Todo" onClick={() => props.completeItem(props.index)}>{props.content}</div>);
-}
-
-export default Todo;
+const Item = props => {
+  return (
+    <li className="Item" onClick={() => props.completeItem(props.index)}>
+      {props.content}
+    </li>
+  );
+};s
 ```
 
 Vale, ya tenemos configurado el `state` y vinculada la función que se encarga de modificarlo. Pero, ¿cómo vamos a saber si está completada o no? Para ello, tenemos definida en CSS la clase `is-completes`, que define esos estilos, por lo que, cuando `isCompleted` sea `true`, ese componente deberá llevar esa clase:
 
 // TODO: comprobar que esto no añade la clase false
 
-```
-className=`Todo ${props.isCompleted && 'is-completed'}`
+```js
+className={`Todo ${props.isCompleted && 'is-completed'}`}
+
 ```
 
 > 💡 Hemos usado otra funcionalidad de ES6, los `backticks`. Son `template strings`, es decir, plantillas de cadenas de texto a través de las cuales podemos concatenar texto con variables o expresiones con una sintaxis más fácil de leer. Aquí tienes un ejemplo
@@ -484,6 +511,7 @@ className=`Todo ${props.isCompleted && 'is-completed'}`
 > 
 > // Con backticks
 > const bar = `Hola ${name}!`
+> 
 > ```
 >
 > Mucho mejor la segunda forma, ¿verdad? 😜 [Aquí tienes más información](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals).
