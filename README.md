@@ -1,4 +1,4 @@
-# ⚛️ Taller React: aplicación To-do
+# ⚛︎ Taller React: aplicación To-do
 
 Este repo lo vamos a utilizar como segunda parte de la charla [<devs> Taller de React: de 0 a ninja </devs>](https://www.meetup.com/es-ES/WordPress-Madrid/events/263751142/), haciendo ahora un ejercicio práctico.
 
@@ -630,7 +630,7 @@ Ahora tienes un mundo abierto de posibilidades: puedes tratar de mejorar tu apli
 Si quieres seguir ampliando información, en los siguientes apartados te hemos dejado algunas ideas y recursos para que puedas seguir practicando. ¡Pero tómatelo con calma! ¡Ahora toca celebrarlo! 🍻
 
 <p align="center">
-  <img alt="Happy" width="300" src="https://media.giphy.com/media/LZElUsjl1Bu6c/giphy.gif">
+  <img alt="Cerveza" width="500" src="https://media.giphy.com/media/h8NdYZJGH1ZRe/giphy.gif">
 </p>
 
 ### ✳️ ¡Bonus! ✳️
