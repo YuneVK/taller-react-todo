@@ -351,22 +351,22 @@ Ya vemos el listado, pero es el momento de hacer un pequeño `refactor`, ya que 
 Para ello, crea una carpeta llama `components` dentro de `src` y, dentro de esta carpeta, un archivo `Item.js`, quedando la estructura así:
 
 ```
-MyWebApp/
-  README.md
+taller-react-todo/
   node_modules/
-  package.json
   public/
     index.html
     favicon.ico
+  components/
+  	Item.js
   src/
-  	components/
-  		Item.js
     App.css
     App.js
     App.test.js
     index.css
     index.js
     logo.svg
+  package.json
+  README.md
 ```
 
 > 💡 Crear una carpeta `components` no es obligatorio, puedes tener todos tus componentes sueltos en `src`, aunque se suelen poner en una carpeta por convenio, para organizar el código. ¡Sigue unas buenas prácticas y tu yo el futuró te lo agradecerá! 🤗
