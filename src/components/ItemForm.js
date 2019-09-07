@@ -3,7 +3,8 @@ import React, { useState } from "react";
 const ItemForm = props => {
   const [value, setValue] = useState("");
 
-  const handleSubmit = () => {
+  const handleSubmit = e => {
+    e.preventDefault();
     if (!value) return;
 
     props.addItem(value);
@@ -11,10 +12,9 @@ const ItemForm = props => {
   };
 
   return (
-    <form action="javascript:;" onSubmit={handleSubmit}>
+    <form className="ItemForm" onSubmit={handleSubmit}>
       <input
         type="text"
-        className="input"
         value={value}
         onChange={e => setValue(e.target.value)}
       />
