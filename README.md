@@ -6,7 +6,9 @@ Este repo lo vamos a utilizar como segunda parte de la charla [<devs> Taller de 
 
 En la primera parte hemos visto qué es React, hemos echado un vistazo a su ecosistema y repasado cuáles son los elementos más importantes: componentes, estado y props. Si has aguantado hasta aquí, ¡ahora viene lo mejor! Vamos a poner todo esto en práctica para que empieces tu camino a ser ninja. 😎
 
-![Ninja](https://media.giphy.com/media/ErdfMetILIMko/source.gif)
+<p align="center">
+  <img alt="Nina" width="500" src="https://media.giphy.com/media/ErdfMetILIMko/source.gif">
+</p>
 
 ## ¿Qué vamos a hacer?
 
@@ -15,7 +17,7 @@ Vamos a hacer un sencillo Todo en el que pongamos en práctica todo lo que hemos
 El resultado final será este:
 
 <p align="center">
-  <img alt="Aplicación Todo" width="600" src="https://raw.githubusercontent.com/YuneVK/portfolio-test/master/images/aplicacion-todo.gif">
+  <img alt="Aplicación Todo" height="600" src="https://raw.githubusercontent.com/YuneVK/portfolio-test/master/images/aplicacion-todo.gif">
 </p>
 
 > 💡 Si, durante el taller, en algún momento te atascas y no sabes cómo continuar, ¡no dudes en preguntarnos! Aunque te vamos a dejar una pista 😏, en la rama `proyecto` podrás ver el código del ejercicio (recuerda que puedes cambiar de rama con el comando `git checkout <nombre>`). Puedes tenerlo como referencia, ¡pero recuerda que como se aprende de verdad es peleándote con el código!
@@ -344,7 +346,9 @@ Ya los tenemos establecidos en el componente, ¡así que toca mostrar el listado
 
 Ahora vuelve al navegador y comprueba que todo funciona correctamente. :crossed_fingers:
 
-[AÑADIR IMAGEN]
+<p align="center">
+  <img alt="Listado" width="600" src="https://raw.githubusercontent.com/YuneVK/portfolio-test/master/images/todo-listado.png">
+</p>
 
 Ya vemos el listado, pero es el momento de hacer un pequeño `refactor`, ya que tenemos que pensar en componentes. Por eso, vamos a crear uno que sea el encargado de mostrar un elemento de la lista.
 
@@ -441,8 +445,6 @@ export default App;
 ```
 
 Ahora volvemos al navegador y vemos que sigue funcionando correctamente:
-
-[CAPTURA]
 
 > :bulb: **React Developers Tools** es una extensión para [Chrome](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi) y Firefox muy útil para desarrollar con [React](https://addons.mozilla.org/es/firefox/addon/react-devtools/), ya que te permite inspeccionar los componentes, su estado, e incluso modificarlo.
 
@@ -614,6 +616,10 @@ className={`Item${props.isComplete ? " completed" : ""}`}
 
 Por último, comprueba que funciona correctamente.
 
+<p align="center">
+  <img alt="Aplicación Todo" height="600" src="https://raw.githubusercontent.com/YuneVK/portfolio-test/master/images/todo-complete.gif">
+</p>
+
 ## ¡Enhorabuena! ¡Has completado el taller! 🎉
 
 Esperamos que hayas aprendido mucho y te hayas quedado con ganas de seguir trasteando. 😉 ¡Eso es lo importante!
@@ -622,7 +628,9 @@ Ahora tienes un mundo abierto de posibilidades: puedes tratar de mejorar tu apli
 
 Si quieres seguir ampliando información, en los siguientes apartados te hemos dejado algunas ideas y recursos para que puedas seguir practicando. ¡Pero tómatelo con calma! ¡Ahora toca celebrarlo! 🍻
 
-![Cerveza](https://media.giphy.com/media/h8NdYZJGH1ZRe/giphy.gif)
+<p align="center">
+  <img alt="Cerveza" width="500" src="https://media.giphy.com/media/h8NdYZJGH1ZRe/giphy.gif">
+</p>
 
 ### ✳️ ¡Bonus! ✳️
 
@@ -672,4 +680,6 @@ Si tienes cualquier duda o sugerencia, puedes dejarla en un `issue` de este repo
 
 También puedes contactar conmigo a través de twitter ([@Yune__vk](https://twitter.com/Yune__vk)), [LinkedIn](https://www.linkedin.com/feed/) e incluso en la página de [Meetup del evento](https://www.meetup.com/es-ES/WordPress-Madrid/events/263751142/).
 
-![Despedida](https://media.giphy.com/media/1msH5HVV15d9eDglxh/giphy.gif)
+<p align="center">
+  <img alt="Despedida" width="500" src="https://media.giphy.com/media/1msH5HVV15d9eDglxh/giphy.gif">
+</p>
