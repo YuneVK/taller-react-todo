@@ -137,8 +137,8 @@ Esto ya te va resultando familiar, ¿verdad? 😄
 >
 > ```js
 > return (
-> <h1>Elemento</h1>
-> <h2>Elemento</h2>
+>   <h1>Elemento</h1>
+>   <h2>Elemento</h2>
 > );
 > ```
 >
@@ -147,8 +147,8 @@ Esto ya te va resultando familiar, ¿verdad? 😄
 > ```js
 > return (
 > 	<div>
-> <h1>Elemento</h1>
-> <h2>Elemento</h2>
+>     <h1>Elemento</h1>
+>     <h2>Elemento</h2>
 > 	</div>
 > );
 > ```
@@ -319,14 +319,12 @@ function App() {
 
   // ...
 }
-
 ```
 
 > ⚠️ Como estás usando la función `useState`, vas a tener que importarla, así que cambia la línea 1 por lo siguiente:
 >
 > ```js
 > import React, { useState } from "react";
-> 
 > ```
 
 Ya los tenemos establecidos en el componente, ¡así que toca mostrar el listado! Como `todos` es un array, tendremos que recorrerlo para renderizar un elemento por cada uno. Para ello, establece el método `reader()` de tu componente `App` así:
@@ -343,7 +341,6 @@ Ya los tenemos establecidos en el componente, ¡así que toca mostrar el listado
       </ul>
     </div>
   );
-
 ```
 
 > 💡 **¡Recuerda!** El método [`map()`](https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/Array/map) recorre un array y devuelve un nuevo array con los resultados de la función que recibe por parámetro, que es aplicada a cada elemento del array. Es muy común su uso en React para renderizar componentes en función de un listado.
@@ -375,7 +372,6 @@ MyWebApp/
     index.css
     index.js
     logo.svg
-
 ```
 
 > 💡 Crear una carpeta `components` no es obligatorio, puedes tener todos tus componentes sueltos en `src`, aunque se suelen poner en una carpeta por convenio, para organizar el código. ¡Sigue unas buenas prácticas y tu yo el futuró te lo agradecerá! 🤗
@@ -390,14 +386,12 @@ const Item = props => {
 };
 
 export default Item;
-
 ```
 
 Ahora tenemos que utilizar este componente en el principal, `App`. Para ello, el primer paso es importarlo:
 
 ```js
 import Item from './components/Item'
-
 ```
 
 Una vez importado, podremos utilizarlo, por lo que volvemos a cambiar el método `render()`:
@@ -416,7 +410,6 @@ Una vez importado, podremos utilizarlo, por lo que volvemos a cambiar el método
       </div>
     </div>
   );
-
 ```
 
 Con todos estos cambios, el componente `App` quedaría así:
@@ -450,7 +443,6 @@ function App() {
 }
 
 export default App;
-
 ```
 
 Ahora volvemos al navegador y vemos que sigue funcionando correctamente:
@@ -468,7 +460,6 @@ const addItem = content => {
   const newItems = [...items, { content: content } ];
   setItems(newItems);
 };
-
 ```
 
 > 💡 ¿Te ha confundido la parte de `[...todos, text ]`? Es el [`spread operator`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax) (u operador de propagación), una característica de ES6 que, en este caso, lo estamos utilizando para hacer una copia del array `todos` y añadiendo al final el valor de `text`. ¿Por qué tenemos que hacer una copia? En JavaScript, los tipos de datos complejos (arrays y objetos) se pasan por referencia, y no por valor, por lo tenemos que hacerlo para tener una copia de `todos` y asegurarnos de que no modificamos el original. [En este artículo tienes más información sobre las diferencias de valor y referencia](https://codeburst.io/explaining-value-vs-reference-in-javascript-647a975e12a0).
@@ -483,7 +474,6 @@ Siguiendo lo que hemos comentado, cuando ya tengas creado el archivo del compone
 
 ```js
 const [value, setValue] = useState("");
-
 ```
 
 A continuación, añade el contenido que renderizará el componente:
@@ -499,7 +489,6 @@ return (
       />
     </form>
 );
-
 ```
 
 Vamos a destacar varias cosas del código que acabas de añadir:
@@ -518,7 +507,6 @@ const handleSubmit = e => {
   props.addItem(value);
   setValue("");
 };
-
 ```
 
 Con este código, comprobamos si el `state` tiene contenido, es decir, si se ha introducido algo. Si es así, lo añadimos al listado mediante la función `addTodo` que recibe por `props`.
@@ -527,14 +515,12 @@ Ahora te falta importar dicho componente a `App`:
 
 ```js
 import ItemForm from "./components/ItemForm";
-
 ```
 
 Y renderizarlo, pasándole la función `addItem`:
 
 ```js
 <ItemForm addItem={addItem} />
-
 ```
 
 ¡Y ya estaría! Ahora solo te queda comprobar que funciona. 😬
@@ -562,7 +548,6 @@ const [items, setItems] = useState([
       isCompleted: false
     }
 ]);
-
 ```
 
 También tenemos que actualizar el método `addItem` para que, cuando genere el objeto, también añada esta propiedad:
@@ -572,7 +557,6 @@ const addItem = content => {
     const newItems = [...items, { content: content, isCompleted: false }];
     setItems(newItems);
 };
-
 ```
 
 A continuación tendremos que escribir la función que se encargará de cambiar ese estado (a `true`si está en `false`, y viceversa), teniendo en cuenta que para ello deberá recibir la posición del array a la que se le quiere cambiar este valor.
@@ -580,10 +564,9 @@ A continuación tendremos que escribir la función que se encargará de cambiar 
 ```js
 const completeItem = index => {
 	const newItems = [...items];
-     newItems[index].isCompleted = !newItems[index].isCompleted;
-     setItems(newItems);
+  newItems[index].isCompleted = !newItems[index].isCompleted;
+  setItems(newItems);
 };
-
 ```
 
 El funcionamiento de la función es sencillo: clonamos el array, accedemos a la posición en función del índice que recibimos por parámetro y cambiamos su propiedad `isCompleted` por su opuesto (con el símbolo `!` devolvemos el valor contrario).
@@ -600,7 +583,6 @@ Esta función que hemos creado se la vamos a sar al componente `Item` para que p
   completeItem={completeItem}
 	isCompleted={item.isCompleted}
 />
-
 ```
 
 Ahora vamos al componente `Item` para establecer que, cada vez que se pulse sobre él, se ejecute dicha función, pasando el `index` por parámetro:
