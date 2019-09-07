@@ -6,7 +6,9 @@ Este repo lo vamos a utilizar como segunda parte de la charla [<devs> Taller de 
 
 En la primera parte hemos visto qué es React, hemos echado un vistazo a su ecosistema y repasado cuáles son los elementos más importantes: componentes, estado y props. Si has aguantado hasta aquí, ¡ahora viene lo mejor! Vamos a poner todo esto en práctica para que empieces tu camino a ser ninja. 😎
 
-![Ninja](https://media.giphy.com/media/ErdfMetILIMko/source.gif)
+<p align="center">
+  <img alt="Nina" width="500" src="https://media.giphy.com/media/ErdfMetILIMko/source.gif">
+</p>
 
 ## ¿Qué vamos a hacer?
 
@@ -14,7 +16,9 @@ Vamos a hacer un sencillo Todo en el que pongamos en práctica todo lo que hemos
 
 El resultado final será este:
 
-
+<p align="center">
+  <img alt="Aplicación Todo" height="600" src="https://raw.githubusercontent.com/YuneVK/portfolio-test/master/images/aplicacion-todo.gif">
+</p>
 
 > 💡 Si, durante el taller, en algún momento te atascas y no sabes cómo continuar, ¡no dudes en preguntarnos! Aunque te vamos a dejar una pista 😏, en la rama `proyecto` podrás ver el código del ejercicio (recuerda que puedes cambiar de rama con el comando `git checkout <nombre>`). Puedes tenerlo como referencia, ¡pero recuerda que como se aprende de verdad es peleándote con el código!
 
@@ -33,7 +37,9 @@ El primer paso es sencillo: ¡hay que configurar nuestro entorno de trabajo!
 5. Arranca el proyecto: `npm start`.
 6. Abre el navegador y entra a la dirección `localhost:3000` para comprobar que está funcionando.
 
-[AÑADIR CAPTURA]
+<p align="center">
+  <img alt="Create-react-app home" width="600" src="https://raw.githubusercontent.com/YuneVK/portfolio-test/master/images/home-create-react-app.png">
+</p>
 
 _It works!_ 😁 ¡Seguimos!
 
@@ -292,6 +298,7 @@ function Component() {
 
   // ...
 }
+
 ```
 
 Vamos a seguir esta sintaxis para establecer el estado `items` a nuestro componente `App`:
@@ -312,12 +319,14 @@ function App() {
 
   // ...
 }
+
 ```
 
 > ⚠️ Como estás usando la función `useState`, vas a tener que importarla, así que cambia la línea 1 por lo siguiente:
 >
 > ```js
 > import React, { useState } from "react";
+> 
 > ```
 
 Ya los tenemos establecidos en el componente, ¡así que toca mostrar el listado! Como `todos` es un array, tendremos que recorrerlo para renderizar un elemento por cada uno. Para ello, establece el método `reader()` de tu componente `App` así:
@@ -334,13 +343,16 @@ Ya los tenemos establecidos en el componente, ¡así que toca mostrar el listado
       </ul>
     </div>
   );
+
 ```
 
 > 💡 **¡Recuerda!** El método [`map()`](https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/Array/map) recorre un array y devuelve un nuevo array con los resultados de la función que recibe por parámetro, que es aplicada a cada elemento del array. Es muy común su uso en React para renderizar componentes en función de un listado.
 
 Ahora vuelve al navegador y comprueba que todo funciona correctamente. :crossed_fingers:
 
-[AÑADIR IMAGEN]
+<p align="center">
+  <img alt="Listado" width="600" src="https://raw.githubusercontent.com/YuneVK/portfolio-test/master/images/todo-listado.png">
+</p>
 
 Ya vemos el listado, pero es el momento de hacer un pequeño `refactor`, ya que tenemos que pensar en componentes. Por eso, vamos a crear uno que sea el encargado de mostrar un elemento de la lista.
 
@@ -363,6 +375,7 @@ MyWebApp/
     index.css
     index.js
     logo.svg
+
 ```
 
 > 💡 Crear una carpeta `components` no es obligatorio, puedes tener todos tus componentes sueltos en `src`, aunque se suelen poner en una carpeta por convenio, para organizar el código. ¡Sigue unas buenas prácticas y tu yo el futuró te lo agradecerá! 🤗
@@ -377,12 +390,14 @@ const Item = props => {
 };
 
 export default Item;
+
 ```
 
 Ahora tenemos que utilizar este componente en el principal, `App`. Para ello, el primer paso es importarlo:
 
 ```js
 import Item from './components/Item'
+
 ```
 
 Una vez importado, podremos utilizarlo, por lo que volvemos a cambiar el método `render()`:
@@ -401,6 +416,7 @@ Una vez importado, podremos utilizarlo, por lo que volvemos a cambiar el método
       </div>
     </div>
   );
+
 ```
 
 Con todos estos cambios, el componente `App` quedaría así:
@@ -434,11 +450,10 @@ function App() {
 }
 
 export default App;
+
 ```
 
 Ahora volvemos al navegador y vemos que sigue funcionando correctamente:
-
-[CAPTURA]
 
 > :bulb: **React Developers Tools** es una extensión para [Chrome](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi) y Firefox muy útil para desarrollar con [React](https://addons.mozilla.org/es/firefox/addon/react-devtools/), ya que te permite inspeccionar los componentes, su estado, e incluso modificarlo.
 
@@ -453,6 +468,7 @@ const addItem = content => {
   const newItems = [...items, { content: content } ];
   setItems(newItems);
 };
+
 ```
 
 > 💡 ¿Te ha confundido la parte de `[...todos, text ]`? Es el [`spread operator`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax) (u operador de propagación), una característica de ES6 que, en este caso, lo estamos utilizando para hacer una copia del array `todos` y añadiendo al final el valor de `text`. ¿Por qué tenemos que hacer una copia? En JavaScript, los tipos de datos complejos (arrays y objetos) se pasan por referencia, y no por valor, por lo tenemos que hacerlo para tener una copia de `todos` y asegurarnos de que no modificamos el original. [En este artículo tienes más información sobre las diferencias de valor y referencia](https://codeburst.io/explaining-value-vs-reference-in-javascript-647a975e12a0).
@@ -467,6 +483,7 @@ Siguiendo lo que hemos comentado, cuando ya tengas creado el archivo del compone
 
 ```js
 const [value, setValue] = useState("");
+
 ```
 
 A continuación, añade el contenido que renderizará el componente:
@@ -482,6 +499,7 @@ return (
       />
     </form>
 );
+
 ```
 
 Vamos a destacar varias cosas del código que acabas de añadir:
@@ -500,6 +518,7 @@ const handleSubmit = e => {
   props.addItem(value);
   setValue("");
 };
+
 ```
 
 Con este código, comprobamos si el `state` tiene contenido, es decir, si se ha introducido algo. Si es así, lo añadimos al listado mediante la función `addTodo` que recibe por `props`.
@@ -508,12 +527,14 @@ Ahora te falta importar dicho componente a `App`:
 
 ```js
 import ItemForm from "./components/ItemForm";
+
 ```
 
 Y renderizarlo, pasándole la función `addItem`:
 
 ```js
 <ItemForm addItem={addItem} />
+
 ```
 
 ¡Y ya estaría! Ahora solo te queda comprobar que funciona. 😬
@@ -541,6 +562,7 @@ const [items, setItems] = useState([
       isCompleted: false
     }
 ]);
+
 ```
 
 También tenemos que actualizar el método `addItem` para que, cuando genere el objeto, también añada esta propiedad:
@@ -550,6 +572,7 @@ const addItem = content => {
     const newItems = [...items, { content: content, isCompleted: false }];
     setItems(newItems);
 };
+
 ```
 
 A continuación tendremos que escribir la función que se encargará de cambiar ese estado (a `true`si está en `false`, y viceversa), teniendo en cuenta que para ello deberá recibir la posición del array a la que se le quiere cambiar este valor.
@@ -560,6 +583,7 @@ const completeItem = index => {
      newItems[index].isCompleted = !newItems[index].isCompleted;
      setItems(newItems);
 };
+
 ```
 
 El funcionamiento de la función es sencillo: clonamos el array, accedemos a la posición en función del índice que recibimos por parámetro y cambiamos su propiedad `isCompleted` por su opuesto (con el símbolo `!` devolvemos el valor contrario).
@@ -576,6 +600,7 @@ Esta función que hemos creado se la vamos a sar al componente `Item` para que p
   completeItem={completeItem}
 	isCompleted={item.isCompleted}
 />
+
 ```
 
 Ahora vamos al componente `Item` para establecer que, cada vez que se pulse sobre él, se ejecute dicha función, pasando el `index` por parámetro:
@@ -610,6 +635,10 @@ className={`Item${props.isComplete ? " completed" : ""}`}
 
 Por último, comprueba que funciona correctamente.
 
+<p align="center">
+  <img alt="Aplicación Todo" height="600" src="https://raw.githubusercontent.com/YuneVK/portfolio-test/master/images/todo-complete.gif">
+</p>
+
 ## ¡Enhorabuena! ¡Has completado el taller! 🎉
 
 Esperamos que hayas aprendido mucho y te hayas quedado con ganas de seguir trasteando. 😉 ¡Eso es lo importante!
@@ -618,7 +647,9 @@ Ahora tienes un mundo abierto de posibilidades: puedes tratar de mejorar tu apli
 
 Si quieres seguir ampliando información, en los siguientes apartados te hemos dejado algunas ideas y recursos para que puedas seguir practicando. ¡Pero tómatelo con calma! ¡Ahora toca celebrarlo! 🍻
 
-![Cerveza](https://media.giphy.com/media/h8NdYZJGH1ZRe/giphy.gif)
+<p align="center">
+  <img alt="Cerveza" width="500" src="https://media.giphy.com/media/h8NdYZJGH1ZRe/giphy.gif">
+</p>
 
 ### ✳️ ¡Bonus! ✳️
 
@@ -668,4 +699,6 @@ Si tienes cualquier duda o sugerencia, puedes dejarla en un `issue` de este repo
 
 También puedes contactar conmigo a través de twitter ([@Yune__vk](https://twitter.com/Yune__vk)), [LinkedIn](https://www.linkedin.com/feed/) e incluso en la página de [Meetup del evento](https://www.meetup.com/es-ES/WordPress-Madrid/events/263751142/).
 
-![Despedida](https://media.giphy.com/media/1msH5HVV15d9eDglxh/giphy.gif)
+<p align="center">
+  <img alt="Despedida" width="500" src="https://media.giphy.com/media/1msH5HVV15d9eDglxh/giphy.gif">
+</p>
