@@ -633,7 +633,7 @@ Ahora tienes un mundo abierto de posibilidades: puedes tratar de mejorar tu apli
 Si quieres seguir ampliando información, en los siguientes apartados te hemos dejado algunas ideas y recursos para que puedas seguir practicando. ¡Pero tómatelo con calma! ¡Ahora toca celebrarlo! 🍻
 
 <p align="center">
-  <img alt="Cerveza" width="500" src="https://media.giphy.com/media/h8NdYZJGH1ZRe/giphy.gif">
+  <img alt="Happy" width="300" src="https://media.giphy.com/media/LZElUsjl1Bu6c/giphy.gif">
 </p>
 
 ### ✳️ ¡Bonus! ✳️
