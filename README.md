@@ -14,7 +14,9 @@ Vamos a hacer un sencillo Todo en el que pongamos en práctica todo lo que hemos
 
 El resultado final será este:
 
-![Aplicación Todo](https://raw.githubusercontent.com/YuneVK/portfolio-test/master/images/aplicacion-todo.gif)
+<p align="center">
+  <img alt="Aplicación Todo" width="600" src="https://raw.githubusercontent.com/YuneVK/portfolio-test/master/images/aplicacion-todo.gif">
+</p>
 
 > 💡 Si, durante el taller, en algún momento te atascas y no sabes cómo continuar, ¡no dudes en preguntarnos! Aunque te vamos a dejar una pista 😏, en la rama `proyecto` podrás ver el código del ejercicio (recuerda que puedes cambiar de rama con el comando `git checkout <nombre>`). Puedes tenerlo como referencia, ¡pero recuerda que como se aprende de verdad es peleándote con el código!
 
@@ -33,7 +35,9 @@ El primer paso es sencillo: ¡hay que configurar nuestro entorno de trabajo!
 5. Arranca el proyecto: `npm start`.
 6. Abre el navegador y entra a la dirección `localhost:3000` para comprobar que está funcionando.
 
-![Create-react-app home](https://raw.githubusercontent.com/YuneVK/portfolio-test/master/images/home-create-react-app.png)
+<p align="center">
+  <img alt="Create-react-app home" width="600" src="https://raw.githubusercontent.com/YuneVK/portfolio-test/master/images/home-create-react-app.png">
+</p>
 
 _It works!_ 😁 ¡Seguimos!
 
