@@ -85,13 +85,13 @@ Además, en la raíz también tenemos los siguientes archivos:
 Otro archivo clave en este proyecto es el `index.js` que está dentro de la carpeta `src`, ya que es el punto de entrada de la aplicación. Si lo abrimos veremos que tiene muy pocas líneas:
 
 ```js
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
+import * as serviceWorker from "./serviceWorker";
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById("root"));
 ```
 
 Pero son claves para su funcionamiento. Como hablamos antes, lo primero es importar `React` y todos sus paquetes necesarios (`react-dom`), además del componente principal que vamos a utilizar, `App`.
@@ -101,9 +101,9 @@ A través del método `ReactDOM.render` renderizamos el componente `App` dentro 
 Si vamos al componente App (`src/App.js`) veremos el siguiente contenido:
 
 ```js
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import logo from "./logo.svg";
+import "./App.css";
 
 function App() {
   return (
@@ -146,10 +146,10 @@ Esto ya te va resultando familiar, ¿verdad? 😄
 >
 > ```js
 > return (
-> 	<div>
+>   <div>
 >     <h1>Elemento</h1>
 >     <h2>Elemento</h2>
-> 	</div>
+>   </div>
 > );
 > ```
 >
@@ -162,16 +162,12 @@ Antes de añadir nada, vamos a hacer un poco de limpieza 🧹 al código que vie
 Vamos a quitar todo lo que devuelva el método `render()` para dejar solo el `div` padre, además de borrar la importación del logo que no vamos a utilizar (`import logo from './logo.svg';`), quedando así:
 
 ```js
-import React, { Component } from 'react';
-import './App.css';
+import React, { Component } from "react";
+import "./App.css";
 
 class App extends Component {
   render() {
-    return (
-      <div className="App">
-        {/* El código de la app irá aquí */}
-      </div>
-    );
+    return <div className="App">{/* El código de la app irá aquí */}</div>;
   }
 }
 
@@ -298,7 +294,6 @@ function Component() {
 
   // ...
 }
-
 ```
 
 Vamos a seguir esta sintaxis para establecer el estado `items` a nuestro componente `App`:
@@ -308,10 +303,10 @@ function App() {
   const [items, setItems] = useState([
     {
       content: "📘 Aprender React"
-    }, 
+    },
     {
       content: "⚛️ Crear mi primera aplicación"
-    }, 
+    },
     {
       content: "🚀 Subirla a GitHub"
     }
@@ -330,17 +325,17 @@ function App() {
 Ya los tenemos establecidos en el componente, ¡así que toca mostrar el listado! Como `todos` es un array, tendremos que recorrerlo para renderizar un elemento por cada uno. Para ello, establece el método `reader()` de tu componente `App` así:
 
 ```js
- return (
-    <div className="App">
-      <ul className="TodoList">
-        {items.map((item, index) => (
-          <li key={index} className="TodoItem">
-            {item.content}
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
+return (
+  <div className="App">
+    <ul className="TodoList">
+      {items.map((item, index) => (
+        <li key={index} className="TodoItem">
+          {item.content}
+        </li>
+      ))}
+    </ul>
+  </div>
+);
 ```
 
 > 💡 **¡Recuerda!** El método [`map()`](https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/Array/map) recorre un array y devuelve un nuevo array con los resultados de la función que recibe por parámetro, que es aplicada a cada elemento del array. Es muy común su uso en React para renderizar componentes en función de un listado.
@@ -391,47 +386,43 @@ export default Item;
 Ahora tenemos que utilizar este componente en el principal, `App`. Para ello, el primer paso es importarlo:
 
 ```js
-import Item from './components/Item'
+import Item from "./components/Item";
 ```
 
 Una vez importado, podremos utilizarlo, por lo que volvemos a cambiar el método `render()`:
 
 ```js
- return (
-    <div className="App">
-      <div className="todo-list">
-        {todos.map((content, index) => (
-          <Todo
-            key={index}
-            index={index}
-            content={content}
-          />
-        ))}
-      </div>
+return (
+  <div className="App">
+    <div className="todo-list">
+      {todos.map((content, index) => (
+        <Todo key={index} index={index} content={content} />
+      ))}
     </div>
-  );
+  </div>
+);
 ```
 
 Con todos estos cambios, el componente `App` quedaría así:
 
 ```js
-import React from 'react';
-import Todo from './componentes/Todo';
+import React from "react";
+import Todo from "./componentes/Todo";
 
 function App() {
   const [todos, setTodos] = useState([
     {
       content: "📘 Aprender React"
-    }, 
+    },
     {
       content: "⚛️ Crear mi primera aplicación"
-    }, 
+    },
     {
       content: "🚀 Subirla a GitHub"
     }
   ]);
 
-   return (
+  return (
     <div className="App">
       <ul className="ListItems">
         {items.map((item, index) => (
@@ -457,7 +448,7 @@ Y para ello, primero creamos un método en nuestro componente `App` que, dado un
 
 ```js
 const addItem = content => {
-  const newItems = [...items, { content: content } ];
+  const newItems = [...items, { content: content }];
   setItems(newItems);
 };
 ```
@@ -480,14 +471,14 @@ A continuación, añade el contenido que renderizará el componente:
 
 ```js
 return (
-    <form className="ItemForm" onSubmit={handleSubmit}>
-      <input
-        type="text"
-				placeholder="Introduce una tarea"
-        value={value}
-        onChange={e => setValue(e.target.value)}
-      />
-    </form>
+  <form className="ItemForm" onSubmit={handleSubmit}>
+    <input
+      type="text"
+      placeholder="Introduce una tarea"
+      value={value}
+      onChange={e => setValue(e.target.value)}
+    />
+  </form>
 );
 ```
 
@@ -503,7 +494,7 @@ Y ahora sí, por último, vamos a establecer el `handleSubmit`:
 const handleSubmit = e => {
   e.preventDefault();
   if (!value) return;
-  
+
   props.addItem(value);
   setValue("");
 };
@@ -529,24 +520,24 @@ Y renderizarlo, pasándole la función `addItem`:
 
 Otra de las características esenciales de una aplicación to-do es poder marcar los elementos como completados, y eso es lo que vamos a hacer ahora.
 
-Piensa, ¿cómo podrías establecer si el elemento ha sido completado o no a través de su componente?  👉 ¡Con su estado!
+Piensa, ¿cómo podrías establecer si el elemento ha sido completado o no a través de su componente? 👉 ¡Con su estado!
 
 Si revisas de nuevo la estructura del `state` del componente `App`, verás que cada ítem tiene solo un dato: `content`. Ahora necesitamos que contenga otra propiedad más, `isCompleted`, que será la que indique si la tarea está o no completada. Por eso, vamos a añadirla, con el valor `false` por defecto:
 
 ```js
 const [items, setItems] = useState([
-    {
-      content: "Tarea 1",
-      isCompleted: false
-    }, 
-    {
-      content: "Tarea 2",
-      isCompleted: false
-    }, 
-    {
-      content: "Tarea 3",
-      isCompleted: false
-    }
+  {
+    content: "📘 Aprender React",
+    isCompleted: false
+  },
+  {
+    content: "⚛️ Crear mi primera aplicación",
+    isCompleted: false
+  },
+  {
+    content: "🚀 Subirla a GitHub",
+    isCompleted: false
+  }
 ]);
 ```
 
@@ -554,8 +545,8 @@ También tenemos que actualizar el método `addItem` para que, cuando genere el 
 
 ```js
 const addItem = content => {
-    const newItems = [...items, { content: content, isCompleted: false }];
-    setItems(newItems);
+  const newItems = [...items, { content: content, isCompleted: false }];
+  setItems(newItems);
 };
 ```
 
@@ -563,7 +554,7 @@ A continuación tendremos que escribir la función que se encargará de cambiar 
 
 ```js
 const completeItem = index => {
-	const newItems = [...items];
+  const newItems = [...items];
   newItems[index].isCompleted = !newItems[index].isCompleted;
   setItems(newItems);
 };
@@ -581,7 +572,7 @@ Esta función que hemos creado se la vamos a sar al componente `Item` para que p
   index={index}
   content={item.content}
   completeItem={completeItem}
-	isCompleted={item.isCompleted}
+  isCompleted={item.isCompleted}
 />
 ```
 
@@ -608,9 +599,9 @@ className={`Item${props.isComplete ? " completed" : ""}`}
 > ```js
 > // Forma clásica
 > const foo = "Hola " + name + "!";
-> 
+>
 > // Con backticks
-> const bar = `Hola ${name}!`
+> const bar = `Hola ${name}!`;
 > ```
 >
 > Mucho mejor la segunda, ¿verdad? 😜 [Aquí tienes más información](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals).
@@ -679,7 +670,7 @@ Por último, te dejamos algunos enlaces de interés:
 
 Si tienes cualquier duda o sugerencia, puedes dejarla en un `issue` de este repo, o incluso hacer una `pull request` encuentras algún error o quieres añadir algo. 🤗
 
-También puedes contactar conmigo a través de twitter ([@Yune__vk](https://twitter.com/Yune__vk)), [LinkedIn](https://www.linkedin.com/feed/) e incluso en la página de [Meetup del evento](https://www.meetup.com/es-ES/WordPress-Madrid/events/263751142/).
+También puedes contactar conmigo a través de twitter ([@Yune\_\_vk](https://twitter.com/Yune__vk)), [LinkedIn](https://www.linkedin.com/feed/) e incluso en la página de [Meetup del evento](https://www.meetup.com/es-ES/WordPress-Madrid/events/263751142/).
 
 <p align="center">
   <img alt="Despedida" width="500" src="https://media.giphy.com/media/1msH5HVV15d9eDglxh/giphy.gif">
