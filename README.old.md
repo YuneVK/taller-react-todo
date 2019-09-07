@@ -10,9 +10,15 @@ En la primera parte hemos visto qué es React, hemos echado un vistazo a su ecos
 
 ## ¿Qué vamos a hacer?
 
+Vamos a hacer un sencillo Todo en el que pongamos en práctica todo lo que hemos aprendido hoy: crear un proyecto, componentes, `state`, `props`y alguna cosilla de `ES6`.
+
+El resultado final será este:
 
 
-> 💡 Si en algún momento te atascas y no sabes cómo continuar, ¡no dudes en preguntarnos! Aunque te vamos a dejar una pista 😏, en la rama `solucion` podrás ver el código del ejercicio (recuerda que puedes cambiar de rama con el comando `git checkout <nombre>`). Puedes tenerlo como referencia, ¡pero recuerda que como se aprende de verdad es peleándote con el código!
+
+> 💡 Si, durante el taller, en algún momento te atascas y no sabes cómo continuar, ¡no dudes en preguntarnos! Aunque te vamos a dejar una pista 😏, en la rama `proyecto` podrás ver el código del ejercicio (recuerda que puedes cambiar de rama con el comando `git checkout <nombre>`). Puedes tenerlo como referencia, ¡pero recuerda que como se aprende de verdad es peleándote con el código!
+
+¿Estás listo? ¡Pues empecemos! 🤗
 
 ## Creando nuestra aplicación
 
@@ -135,8 +141,8 @@ Esto ya te va resultando familiar, ¿verdad? 😄
 > ```js
 > return (
 > 	<div>
->     <h1>Elemento</h1>
->     <h2>Elemento</h2>
+> <h1>Elemento</h1>
+> <h2>Elemento</h2>
 > 	</div>
 > );
 > ```
@@ -177,8 +183,96 @@ Sí, estamos en _front_, así que, aunque no nos centraremos en los estilos de l
 Hemos preparado este CSS para que lo añadas a `App.css`, con las clases que utilizaremos a continuación:
 
 ```css
-// ADD CSS
+.App {
+  width: 20rem;
+  max-width: 90vw;
+  height: 30rem;
+  max-height: 90vh;
+  margin: 1rem;
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0px 1px 2px 0px rgba(50, 50, 50, 0.2);
+  color: #263238;
+  display: flex;
+  flex-direction: column;
+}
+
+.App h1 {
+  margin: 0;
+  margin-bottom: 1.5rem;
+  font-weight: 200;
+  font-size: 3rem;
+  position: relative;
+  color: #00897b;
+  text-align: center;
+}
+
+.ListItems {
+  margin: 1rem 0;
+  list-style-type: none;
+  padding: 0;
+  overflow: scroll;
+}
+
+.Item {
+  font-size: 1.2rem;
+  padding: 1rem 0.5rem;
+  border-bottom: 1px solid #eceff1;
+  cursor: pointer;
+}
+
+.Item.completed {
+  color: #90a4ae;
+  text-decoration: line-through;
+}
+
+.ItemForm input {
+  width: 100%;
+  font-size: 1.2rem;
+  padding: 0.5rem 0.5rem;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 1px solid #90a4ae;
+}
+
+.ItemForm input:focus {
+  border-bottom: 1px solid #00897b;
+  outline: 0;
+}
+
+.ItemForm input:focus::placeholder {
+  color: #00897b;
+}
+
+.ItemForm input::placeholder {
+  color: #90a4ae;
+  font-weight: 100;
+}
 ```
+
+Y este para `index.css`:
+
+```css
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400&display=swap");
+
+body {
+  margin: 0;
+  background: #f6f9fd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  font-family: "Open Sans", sans-serif;
+}
+
+#root {
+  height: fit-content;
+  width: fit-content;
+}
+```
+
+> ⚠️ Para no extender más el taller, vamos a tener todo el código CSS en un archivo, pero lo ideal es que el código CSS relativo a cada componente esté en archivos diferentes, y sea cada componente el que importe su archivo CSS. Esta refactorización la puedes hacer después. :wink:
 
 Ya tenemos nuestro `setup`, así que vamos con los componentes lógicos.
 
@@ -193,7 +287,7 @@ Nuestra aplicación va a tener una lista de tareas, por lo que, si lo piensas, e
 Recuerda que, mediantes los Hooks, podemos definir el estado de un componente con la siguiente sintaxis:
 
 ```js
-function Componente() {
+function Component() {
   const [fooBar, setFooBar] = useState("Este sería el valor inicial");
 
   // ...
@@ -206,13 +300,13 @@ Vamos a seguir esta sintaxis para establecer el estado `items` a nuestro compone
 function App() {
   const [items, setItems] = useState([
     {
-      content: "Tarea 1"
+      content: "📘 Aprender React"
     }, 
     {
-      content: "Tarea 2"
+      content: "⚛️ Crear mi primera aplicación"
     }, 
     {
-      content: "Tarea 3"
+      content: "🚀 Subirla a GitHub"
     }
   ]);
 
@@ -231,19 +325,13 @@ Ya los tenemos establecidos en el componente, ¡así que toca mostrar el listado
 ```js
  return (
     <div className="App">
-      <div className="todo-list">
+      <ul className="TodoList">
         {items.map((item, index) => (
-          <div className="App">
-      			<ul className="TodoList">
-        			{items.map((item, index) => (
-          			<li key={index} className="TodoItem">
-            			{item.content}
-          			</li>
-        			))}
-      			</ul>
-    			</div>
+          <li key={index} className="TodoItem">
+            {item.content}
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   );
 ```
@@ -324,13 +412,13 @@ import Todo from './componentes/Todo';
 function App() {
   const [todos, setTodos] = useState([
     {
-      content: "Tarea 1"
+      content: "📘 Aprender React"
     }, 
     {
-      content: "Tarea 2"
+      content: "⚛️ Crear mi primera aplicación"
     }, 
     {
-      content: "Tarea 3"
+      content: "🚀 Subirla a GitHub"
     }
   ]);
 
@@ -352,6 +440,8 @@ Ahora volvemos al navegador y vemos que sigue funcionando correctamente:
 
 [CAPTURA]
 
+> :bulb: **React Developers Tools** es una extensión para [Chrome](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi) y Firefox muy útil para desarrollar con [React](https://addons.mozilla.org/es/firefox/addon/react-devtools/), ya que te permite inspeccionar los componentes, su estado, e incluso modificarlo.
+
 ### 6. Añadir elementos
 
 Vale, ya podemos ver los elementos, pero, ¿y si queremos añadir uno nuevo? En este paso vamos a añadir esa funcionalidad.
@@ -369,7 +459,7 @@ const addItem = content => {
 
 Esta función que hemos creado la utilizará el componente del formulario, así que ahora creamos dicho componente, que será `ItemForm` (`src/components/ItemForm.js`).
 
-Básicamente va a ser un formulario con un único `input`, cuyo valor se guardará en su `state`. Además, para su funcionamiento necesitaremos un método que gestione el envío de dicho formulario (lo llamaremos `handleSubmit()`), y que llame a su vez al método `addItem()`, que recibirá del componente `App` para añadir este elemento a su `state`. ¿Te has quedado así 🤯? ¡No te preocupes! Puede ser muy confuso de explicar, pero cuando lo veas en práctica seguro que lo entiendes mejor. 😉
+Básicamente va a ser un formulario con un único `input`, cuyo valor se guardará en su `state`. Además, para su funcionamiento necesitaremos un método que gestione el envío de dicho formulario (lo llamaremos `handleSubmit()`), y que llame a su vez al método `addItem()`, que recibirá del componente `App` para añadir este elemento a su `state`. ¿Te has quedado así: 🤯? ¡No te preocupes! Puede ser muy confuso de explicar, pero cuando lo veas en práctica seguro que lo entiendes mejor. 😉
 
 > 💡 **Recuerda** que puedes pasar todo tipo de dato mediante `props`. Puedes compararlo a los argumentos de una función, a la que le puedes pasar incluso otra función que quieres que se ejecute en ella.
 
@@ -383,15 +473,15 @@ A continuación, añade el contenido que renderizará el componente:
 
 ```js
 return (
-    <form action="javascript:;" onSubmit={handleSubmit}>
+    <form className="ItemForm" onSubmit={handleSubmit}>
       <input
         type="text"
-        className="input"
+				placeholder="Introduce una tarea"
         value={value}
         onChange={e => setValue(e.target.value)}
       />
     </form>
-  );
+);
 ```
 
 Vamos a destacar varias cosas del código que acabas de añadir:
@@ -403,16 +493,16 @@ Vamos a destacar varias cosas del código que acabas de añadir:
 Y ahora sí, por último, vamos a establecer el `handleSubmit`:
 
 ```js
-const handleSubmit = () => {
+const handleSubmit = e => {
+  e.preventDefault();
   if (!value) return;
   
   props.addItem(value);
   setValue("");
 };
-
 ```
 
-Con este código, primero comprobamos si el `state` tiene contenido, es decir, si se ha introducido algo. Si es así, lo añadimos al listado mediante la función `addTodo` que recibe por `props`.
+Con este código, comprobamos si el `state` tiene contenido, es decir, si se ha introducido algo. Si es así, lo añadimos al listado mediante la función `addTodo` que recibe por `props`.
 
 Ahora te falta importar dicho componente a `App`:
 
@@ -450,19 +540,26 @@ const [items, setItems] = useState([
       content: "Tarea 3",
       isCompleted: false
     }
-  ]);
+]);
+```
 
+También tenemos que actualizar el método `addItem` para que, cuando genere el objeto, también añada esta propiedad:
+
+```js
+const addItem = content => {
+    const newItems = [...items, { content: content, isCompleted: false }];
+    setItems(newItems);
+};
 ```
 
 A continuación tendremos que escribir la función que se encargará de cambiar ese estado (a `true`si está en `false`, y viceversa), teniendo en cuenta que para ello deberá recibir la posición del array a la que se le quiere cambiar este valor.
 
 ```js
 const completeItem = index => {
-     const newItems = [...items];
+	const newItems = [...items];
      newItems[index].isCompleted = !newItems[index].isCompleted;
      setItems(newItems);
-   };
-
+};
 ```
 
 El funcionamiento de la función es sencillo: clonamos el array, accedemos a la posición en función del índice que recibimos por parámetro y cambiamos su propiedad `isCompleted` por su opuesto (con el símbolo `!` devolvemos el valor contrario).
@@ -477,9 +574,8 @@ Esta función que hemos creado se la vamos a sar al componente `Item` para que p
   index={index}
   content={item.content}
   completeItem={completeItem}
-	isComplete={item.isComplete}
+	isCompleted={item.isCompleted}
 />
-
 ```
 
 Ahora vamos al componente `Item` para establecer que, cada vez que se pulse sobre él, se ejecute dicha función, pasando el `index` por parámetro:
@@ -491,19 +587,16 @@ const Item = props => {
       {props.content}
     </li>
   );
-};s
+};
 ```
 
 Vale, ya tenemos configurado el `state` y vinculada la función que se encarga de modificarlo. Pero, ¿cómo vamos a saber si está completada o no? Para ello, tenemos definida en CSS la clase `is-completes`, que define esos estilos, por lo que, cuando `isCompleted` sea `true`, ese componente deberá llevar esa clase:
 
-// TODO: comprobar que esto no añade la clase false
-
 ```js
-className={`Todo ${props.isCompleted && 'is-completed'}`}
-
+className={`Item${props.isComplete ? " completed" : ""}`}
 ```
 
-> 💡 Hemos usado otra funcionalidad de ES6, los `backticks`. Son `template strings`, es decir, plantillas de cadenas de texto a través de las cuales podemos concatenar texto con variables o expresiones con una sintaxis más fácil de leer. Aquí tienes un ejemplo
+> 💡 Hemos usado otra funcionalidad de ES6, los `backticks`. Son `template strings`, es decir, plantillas de cadenas de texto a través de las cuales podemos concatenar `strings` con variables o expresiones con una sintaxis más fácil de leer. Aquí tienes un ejemplo
 >
 > ```js
 > // Forma clásica
@@ -511,12 +604,11 @@ className={`Todo ${props.isCompleted && 'is-completed'}`}
 > 
 > // Con backticks
 > const bar = `Hola ${name}!`
-> 
 > ```
 >
-> Mucho mejor la segunda forma, ¿verdad? 😜 [Aquí tienes más información](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals).
+> Mucho mejor la segunda, ¿verdad? 😜 [Aquí tienes más información](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals).
 
-
+Por último, comprueba que funciona correctamente.
 
 ## ¡Enhorabuena! ¡Has completado el taller! 🎉
 
@@ -530,9 +622,11 @@ Si quieres seguir ampliando información, en los siguientes apartados te hemos d
 
 ### ✳️ ¡Bonus! ✳️
 
-#### 1. Eliminar elementos
-
 Esto ya son deberes para casa. 😉
+
+Te proponemos algunas iteraciones más para que le sigas dando forma a la aplicación, asentar conceptos y ganar soltura.
+
+#### 1. Eliminar elementos
 
 Otra funcionalidad que debería tener la aplicación es la que permita eliminar una tarea. ¿Cómo lo harías? ¡Esto te lo dejamos para que lo pienses!
 
@@ -550,27 +644,28 @@ Tan solo tienes que ejecutar el comando `npm run build` y, una vez terminado, te
 
 > 💡 Si quieres más información sobre el proceso de `build` puedes visitar [este enlace de la documentación](https://create-react-app.dev/docs/production-build).
 
+#### Otras cosas que puedes añadir/mejorar de la aplicación
 
+Te dejamos otras ideas para que sigas practicando:
 
-#### Cosas que puedes añadir/mejorar de la aplicación
-
-Te dejamos algunas ideas para que sigas practicando:
-
-- [ ] En nuestra aplicación, podemos crear y eliminar elementos. Pero, ¿qué pasa si queremos editarlos? Puedes empezar añadiendo esa funcionalidad. 😬
-- [ ] Puedes encapsular más los componentes, teniendo una hoja de estilos asociada a cada uno (que el componente `Todo` tenga su propio `Todo.css`).
+- [ ] En nuestra aplicación, podemos crear y eliminar elementos. Pero, ¿qué pasa si queremos editarlos? 😬
+- [ ] Puedes encapsular más los componentes, teniendo una hoja de estilos asociada a cada uno (que el componente `Item` tenga su propio `Item.css`). ¡Esta sería la forma correcta!
 - [ ] ¡Adapta los estilos! Nosotros solo te hemos puesto unos de ejemplo, pero puedes adaptarlo a tu gusto.
 - [ ] ...¡Y lo que se te ocurra! 😉 Hay muchas posibilidades, piensa en qué te gustaría añadir y hazlo.
 
-#### Enlaces útiles para ampliar información y seguir aprendiendo
+### Enlaces útiles para ampliar información y seguir aprendiendo
 
+Por último, te dejamos algunos enlaces de interés:
 
+- **React Developer Tools**: la extensión para [Chrome](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi) y [Firefox](https://addons.mozilla.org/es/firefox/addon/react-devtools/) que te permite inspeccionar los elementos de React.
+- [**React Status**](https://react.statuscode.com/): una newsletter semanal con artículos, tutoriales y novedades del ecosistema de React. ¡Muy útil para estar siempre al día!
 
-#### Recursos
+## ¡Pero esto no termina aquí!
 
-// Añadir react DevTools, plugin de snippets para visual studio, newsletter semanal...
+¡No ha hecho más que empezar!
 
+Si tienes cualquier duda o sugerencia, puedes dejarla en un `issue` de este repo, o incluso hacer una `pull request` encuentras algún error o quieres añadir algo. 🤗
 
+También puedes contactar conmigo a través de twitter ([@Yune__vk](https://twitter.com/Yune__vk)), [LinkedIn](https://www.linkedin.com/feed/) e incluso en la página de [Meetup del evento](https://www.meetup.com/es-ES/WordPress-Madrid/events/263751142/).
 
-
-
-// TODO: añadir placeholder al form, info que diga "pulsa sobre cada tarea para marcarla como completada!" con un emoji
+![Despedida](https://media.giphy.com/media/1msH5HVV15d9eDglxh/giphy.gif)

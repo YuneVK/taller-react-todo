@@ -15,6 +15,7 @@ const ItemForm = props => {
     <form className="ItemForm" onSubmit={handleSubmit}>
       <input
         type="text"
+        placeholder="Introduce una tarea"
         value={value}
         onChange={e => setValue(e.target.value)}
       />

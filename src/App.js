@@ -6,34 +6,35 @@ import ItemForm from "./components/ItemForm";
 function App() {
   const [items, setItems] = useState([
     {
-      content: "Tarea 1",
-      isComplete: false
+      content: "📘 Aprender React",
+      isCompleted: false
     },
     {
-      content: "Tarea 2",
-      isComplete: false
+      content: "⚛️ Crear mi primera aplicación",
+      isCompleted: false
     },
     {
-      content: "Tarea 3",
-      isComplete: false
+      content: "🚀 Subirla a GitHub",
+      isCompleted: false
     }
   ]);
 
   const completeItem = index => {
     const newItems = [...items];
     newItems[index].isComplete = !newItems[index].isComplete;
-    console.log(newItems[index].isComplete);
-    console.log("complete");
     setItems(newItems);
   };
 
   const addItem = content => {
-    const newItems = [...items, { content: content }];
+    const newItems = [...items];
+    newItems.unshift({ content: content, isCompleted: false });
     setItems(newItems);
   };
 
   return (
     <div className="App">
+      <h1>Todo List</h1>
+      <ItemForm addItem={addItem} />
       <ul className="ListItems">
         {items.map((item, index) => (
           <Item
@@ -45,7 +46,6 @@ function App() {
           />
         ))}
       </ul>
-      <ItemForm addItem={addItem} />
     </div>
   );
 }
