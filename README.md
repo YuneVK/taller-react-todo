@@ -1,3 +1,6 @@
+<p align="center">
+  <img alt="Despedida" width="500" 
+
 # ⚛︎ Taller React: aplicación To-do
 
 Este repo lo vamos a utilizar como segunda parte de la charla [<devs> Taller de React: de 0 a ninja </devs>](https://www.meetup.com/es-ES/WordPress-Madrid/events/263751142/), haciendo ahora un ejercicio práctico.
@@ -137,8 +140,8 @@ Esto ya te va resultando familiar, ¿verdad? 😄
 >
 > ```js
 > return (
-> <h1>Elemento</h1>
-> <h2>Elemento</h2>
+>   <h1>Elemento</h1>
+>   <h2>Elemento</h2>
 > );
 > ```
 >
@@ -147,8 +150,8 @@ Esto ya te va resultando familiar, ¿verdad? 😄
 > ```js
 > return (
 > 	<div>
-> <h1>Elemento</h1>
-> <h2>Elemento</h2>
+>     <h1>Elemento</h1>
+>     <h2>Elemento</h2>
 > 	</div>
 > );
 > ```
@@ -298,6 +301,7 @@ function Component() {
 
   // ...
 }
+
 ```
 
 Vamos a seguir esta sintaxis para establecer el estado `items` a nuestro componente `App`:
@@ -563,8 +567,8 @@ A continuación tendremos que escribir la función que se encargará de cambiar 
 ```js
 const completeItem = index => {
 	const newItems = [...items];
-     newItems[index].isCompleted = !newItems[index].isCompleted;
-     setItems(newItems);
+  newItems[index].isCompleted = !newItems[index].isCompleted;
+  setItems(newItems);
 };
 ```
 
@@ -682,4 +686,7 @@ También puedes contactar conmigo a través de twitter ([@Yune__vk](https://twit
 
 <p align="center">
   <img alt="Despedida" width="500" src="https://media.giphy.com/media/1msH5HVV15d9eDglxh/giphy.gif">
+</p>
+
+src="https://media.giphy.com/media/1msH5HVV15d9eDglxh/giphy.gif">
 </p>
