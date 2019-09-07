@@ -536,15 +536,15 @@ Si revisas de nuevo la estructura del `state` del componente `App`, verás que c
 ```js
 const [items, setItems] = useState([
     {
-      content: "Tarea 1",
+      content: "📘 Aprender React",
       isCompleted: false
     }, 
     {
-      content: "Tarea 2",
+      content: "⚛️ Crear mi primera aplicación",
       isCompleted: false
     }, 
     {
-      content: "Tarea 3",
+      content: "🚀 Subirla a GitHub",
       isCompleted: false
     }
 ]);
