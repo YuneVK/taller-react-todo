@@ -1,7 +1,4 @@
-<p align="center">
-  <img alt="Despedida" width="500" 
-
-# ⚛︎ Taller React: aplicación To-do
+# ⚛️ Taller React: aplicación To-do
 
 Este repo lo vamos a utilizar como segunda parte de la charla [<devs> Taller de React: de 0 a ninja </devs>](https://www.meetup.com/es-ES/WordPress-Madrid/events/263751142/), haciendo ahora un ejercicio práctico.
 
@@ -686,7 +683,4 @@ También puedes contactar conmigo a través de twitter ([@Yune__vk](https://twit
 
 <p align="center">
   <img alt="Despedida" width="500" src="https://media.giphy.com/media/1msH5HVV15d9eDglxh/giphy.gif">
-</p>
-
-src="https://media.giphy.com/media/1msH5HVV15d9eDglxh/giphy.gif">
 </p>
