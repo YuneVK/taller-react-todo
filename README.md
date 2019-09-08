@@ -1,4 +1,4 @@
-# ⚛️ Taller React: aplicación To-do
+# ⚛️ Taller React: aplicación Todo
 
 Este repo lo vamos a utilizar como segunda parte de la charla [<devs> Taller de React: de 0 a ninja </devs>](https://www.meetup.com/es-ES/WordPress-Madrid/events/263751142/), haciendo ahora un ejercicio práctico.
 
@@ -137,8 +137,8 @@ Esto ya te va resultando familiar, ¿verdad? 😄
 >
 > ```js
 > return (
->   <h1>Elemento</h1>
->   <h2>Elemento</h2>
+>     <h1>Elemento</h1>
+>     <h2>Elemento</h2>
 > );
 > ```
 >
@@ -210,7 +210,7 @@ Hemos preparado este CSS para que lo añadas a `App.css`, con las clases que uti
   text-align: center;
 }
 
-.ListItems {
+.ItemList {
   margin: 1rem 0;
   list-style-type: none;
   padding: 0;
@@ -280,7 +280,7 @@ Ya tenemos nuestro `setup`, así que vamos con los componentes lógicos.
 
 ### 5. Establecer y leer elementos con el state
 
-Comenzamos estableciendo los elementos es nuestro `to-do` que estarán disponibles al iniciar la aplicación.
+Comenzamos estableciendo los elementos es nuestro `todo` que estarán disponibles al iniciar la aplicación.
 
 ¿Recuerdas cuando hablamos antes del `state`? Comentamos que el `state` (o estado) de un componente permite manejar datos propios a lo largo de su ciclo de vida. Es decir, es una información, un dato local de ese componente.
 
@@ -322,14 +322,14 @@ function App() {
 > import React, { useState } from "react";
 > ```
 
-Ya los tenemos establecidos en el componente, ¡así que toca mostrar el listado! Como `todos` es un array, tendremos que recorrerlo para renderizar un elemento por cada uno. Para ello, establece el método `reader()` de tu componente `App` así:
+Ya los tenemos establecidos en el componente, ¡así que toca mostrar el listado! Como `items` es un array, tendremos que recorrerlo para renderizar un elemento por cada uno. Para ello, establece el método `reader()` de tu componente `App` así:
 
 ```js
 return (
   <div className="App">
-    <ul className="TodoList">
+    <ul className="ItemList">
       {items.map((item, index) => (
-        <li key={index} className="TodoItem">
+        <li key={index} className="Item">
           {item.content}
         </li>
       ))}
@@ -356,9 +356,9 @@ taller-react-todo/
   public/
     index.html
     favicon.ico
-  components/
-  	Item.js
   src/
+    components/
+      Item.js
     App.css
     App.js
     App.test.js
@@ -389,15 +389,17 @@ Ahora tenemos que utilizar este componente en el principal, `App`. Para ello, el
 import Item from "./components/Item";
 ```
 
-Una vez importado, podremos utilizarlo, por lo que volvemos a cambiar el método `render()`:
+Una vez importado, podremos utilizarlo, por lo que volvemos a cambiar el método `render()` de `App`:
 
 ```js
 return (
   <div className="App">
-    <div className="todo-list">
-      {todos.map((content, index) => (
-        <Todo key={index} index={index} content={content} />
-      ))}
+    <div className="ItemList">
+      <ul className="ListItems">
+        {items.map((item, index) => (
+          <Item key={index} index={index} content={item.content} />
+        ))}
+      </ul>
     </div>
   </div>
 );
@@ -407,7 +409,7 @@ Con todos estos cambios, el componente `App` quedaría así:
 
 ```js
 import React from "react";
-import Todo from "./componentes/Todo";
+import Item from "./componentes/Item";
 
 function App() {
   const [todos, setTodos] = useState([
@@ -424,7 +426,7 @@ function App() {
 
   return (
     <div className="App">
-      <ul className="ListItems">
+      <ul className="ItemList">
         {items.map((item, index) => (
           <Item key={index} index={index} content={item.content} />
         ))}
@@ -434,6 +436,18 @@ function App() {
 }
 
 export default App;
+```
+
+Y el componente `Item` quedaría así:
+
+```js
+import React from "react";
+
+const Item = props => {
+  return <li className="Item">{props.content}</li>;
+};
+
+export default Item;
 ```
 
 Ahora volvemos al navegador y vemos que sigue funcionando correctamente:
@@ -447,7 +461,7 @@ Vale, ya podemos ver los elementos, pero, ¿y si queremos añadir uno nuevo? En 
 Y para ello, primero creamos un método en nuestro componente `App` que, dado un valor recibido por parámetro, lo añada al `state` de `todos`.
 
 ```js
-const addItem = content => {
+const addItem = (content) => {
   const newItems = [...items, { content: content }];
   setItems(newItems);
 };
@@ -461,13 +475,13 @@ Básicamente va a ser un formulario con un único `input`, cuyo valor se guardar
 
 > 💡 **Recuerda** que puedes pasar todo tipo de dato mediante `props`. Puedes compararlo a los argumentos de una función, a la que le puedes pasar incluso otra función que quieres que se ejecute en ella.
 
-Siguiendo lo que hemos comentado, cuando ya tengas creado el archivo del componente, primero establece su estado. Recuerda, será el valor del campo del formulario.
+Siguiendo lo que hemos comentado, cuando ya tengas creado el archivo del componente, `ItemForm`, primero establece su estado. Recuerda, será el valor del campo del formulario.
 
 ```js
 const [value, setValue] = useState("");
 ```
 
-A continuación, añade el contenido que renderizará el componente:
+A continuación, añade el contenido que renderizará el componente `ItemForm`:
 
 ```js
 return (
@@ -491,7 +505,7 @@ Vamos a destacar varias cosas del código que acabas de añadir:
 Y ahora sí, por último, vamos a establecer el `handleSubmit`:
 
 ```js
-const handleSubmit = e => {
+const handleSubmit = (e) => {
   e.preventDefault();
   if (!value) return;
 
@@ -511,7 +525,87 @@ import ItemForm from "./components/ItemForm";
 Y renderizarlo, pasándole la función `addItem`:
 
 ```js
-<ItemForm addItem={addItem} />
+  return (
+    <div className="App">
+      <ItemForm addItem={addItem} />
+      <ul className="ItemList">
+        {items.map((item, index) => (
+          <Item key={index} index={index} content={item.content} />
+        ))}
+      </ul>
+    </div>
+  );
+````
+
+Con todos estos cambios, el componente `App` quedaría así:
+
+```js
+import React from "react";
+import Item from "./componentes/Item";
+import ItemForm from "./componentes/ItemForm";
+
+function App() {
+  const [todos, setTodos] = useState([
+    {
+      content: "📘 Aprender React"
+    },
+    {
+      content: "⚛️ Crear mi primera aplicación"
+    },
+    {
+      content: "🚀 Subirla a GitHub"
+    }
+  ]);
+  
+  const addItem = (content) => {
+    const newItems = [...items, { content: content }];
+    setItems(newItems);
+  };
+
+  return (
+    <div className="App">
+      <ItemForm addItem={addItem} />
+      <ul className="ItemList">
+        {items.map((item, index) => (
+          <Item key={index} index={index} content={item.content} />
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+export default App;
+```
+
+Y el componente `ItemForm` así:
+
+```js
+import React, { useState } from "react";
+
+const ItemForm = props => {
+  const [value, setValue] = useState("");
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    if (!value) return;
+
+    props.addItem(value);
+    setValue("");
+  };
+
+  return (
+    <form className="ItemForm" onSubmit={handleSubmit}>
+      <input
+        type="text"
+        placeholder="Introduce una tarea"
+        value={value}
+        onChange={e => setValue(e.target.value)}
+      />
+    </form>
+  );
+};
+
+export default ItemForm;
 ```
 
 ¡Y ya estaría! Ahora solo te queda comprobar que funciona. 😬
@@ -544,7 +638,7 @@ const [items, setItems] = useState([
 También tenemos que actualizar el método `addItem` para que, cuando genere el objeto, también añada esta propiedad:
 
 ```js
-const addItem = content => {
+const addItem = (content) => {
   const newItems = [...items, { content: content, isCompleted: false }];
   setItems(newItems);
 };
@@ -553,7 +647,7 @@ const addItem = content => {
 A continuación tendremos que escribir la función que se encargará de cambiar ese estado (a `true`si está en `false`, y viceversa), teniendo en cuenta que para ello deberá recibir la posición del array a la que se le quiere cambiar este valor.
 
 ```js
-const completeItem = index => {
+const completeItem = (index) => {
   const newItems = [...items];
   newItems[index].isCompleted = !newItems[index].isCompleted;
   setItems(newItems);
@@ -605,6 +699,83 @@ className={`Item${props.isComplete ? " completed" : ""}`}
 > ```
 >
 > Mucho mejor la segunda, ¿verdad? 😜 [Aquí tienes más información](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals).
+
+Haciendo un último repaso a los componentes, `App` quedaría así:
+
+```js
+import React, { useState } from "react";
+import "./App.css";
+import Item from "./components/Item";
+import ItemForm from "./components/ItemForm";
+
+function App() {
+  const [items, setItems] = useState([
+    {
+      content: "📘 Aprender React",
+      isCompleted: false
+    },
+    {
+      content: "⚛️ Crear mi primera aplicación",
+      isCompleted: false
+    },
+    {
+      content: "🚀 Subirla a GitHub",
+      isCompleted: false
+    }
+  ]);
+
+  const completeItem = index => {
+    const newItems = [...items];
+    newItems[index].isComplete = !newItems[index].isComplete;
+    setItems(newItems);
+  };
+
+  const addItem = content => {
+    const newItems = [...items];
+    newItems.unshift({ content: content, isCompleted: false });
+    setItems(newItems);
+  };
+
+  return (
+    <div className="App">
+      <h1>Todo List</h1>
+      <ItemForm addItem={addItem} />
+      <ul className="ListItems">
+        {items.map((item, index) => (
+          <Item
+            key={index}
+            index={index}
+            content={item.content}
+            completeItem={completeItem}
+            isComplete={item.isComplete}
+          />
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+export default App;
+```
+
+Y el componente `Item`:
+
+```js
+import React from "react";
+
+const Item = props => {
+  return (
+    <li
+      className={`Item${props.isComplete ? " completed" : ""}`}
+      onClick={() => props.completeItem(props.index)}
+    >
+      {props.content}
+    </li>
+  );
+};
+
+export default Item;
+```
 
 Por último, comprueba que funciona correctamente.
 
