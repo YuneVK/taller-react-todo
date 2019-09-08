@@ -511,6 +511,8 @@ const handleSubmit = (e) => {
 
   props.addItem(value);
   setValue("");
+  
+  return false;
 };
 ```
 
@@ -591,6 +593,8 @@ const ItemForm = props => {
 
     props.addItem(value);
     setValue("");
+    
+    return false;
   };
 
   return (
