@@ -2,7 +2,7 @@
 
 Este repo lo vamos a utilizar como segunda parte de la charla [<devs> Taller de React: de 0 a ninja </devs>](https://www.meetup.com/es-ES/WordPress-Madrid/events/263751142/), haciendo ahora un ejercicio práctico.
 
-> 👉 Los slides de la primera parte [los puedes ver aquí](#).
+> 👉 Los slides de la primera parte [los puedes ver aquí](https://www.slideshare.net/SoniaRuizCayuela/taller-de-react-de-0-a-ninja).
 
 En la primera parte hemos visto qué es React, hemos echado un vistazo a su ecosistema y repasado cuáles son los elementos más importantes: componentes, estado y props. Si has aguantado hasta aquí, ¡ahora viene lo mejor! Vamos a poner todo esto en práctica para que empieces tu camino a ser ninja. 😎
 
@@ -210,7 +210,7 @@ Hemos preparado este CSS para que lo añadas a `App.css`, con las clases que uti
   text-align: center;
 }
 
-.ListItems {
+.ItemList {
   margin: 1rem 0;
   list-style-type: none;
   padding: 0;
@@ -327,9 +327,10 @@ Ya los tenemos establecidos en el componente, ¡así que toca mostrar el listado
 ```js
 return (
   <div className="App">
-    <ul className="TodoList">
+    <h1>Todo List</h1>
+    <ul className="ItemList">
       {items.map((item, index) => (
-        <li key={index} className="TodoItem">
+        <li key={index} className="Item">
           {item.content}
         </li>
       ))}
@@ -394,11 +395,12 @@ Una vez importado, podremos utilizarlo, por lo que volvemos a cambiar el método
 ```js
 return (
   <div className="App">
-    <div className="todo-list">
+    <h1>Todo List</h1>
+    <ul className="ItemList">
       {todos.map((content, index) => (
         <Todo key={index} index={index} content={content} />
       ))}
-    </div>
+    </ul>
   </div>
 );
 ```
@@ -424,7 +426,8 @@ function App() {
 
   return (
     <div className="App">
-      <ul className="ListItems">
+      <h1>Todo List</h1>
+      <ul className="ItemList">
         {items.map((item, index) => (
           <Item key={index} index={index} content={item.content} />
         ))}
@@ -444,16 +447,17 @@ Ahora volvemos al navegador y vemos que sigue funcionando correctamente:
 
 Vale, ya podemos ver los elementos, pero, ¿y si queremos añadir uno nuevo? En este paso vamos a añadir esa funcionalidad.
 
-Y para ello, primero creamos un método en nuestro componente `App` que, dado un valor recibido por parámetro, lo añada al `state` de `todos`.
+Y para ello, primero creamos un método en nuestro componente `App` que, dado un valor recibido por parámetro, lo añada al `state` de `items`. Con el método `unshift` añadimos un elemento al principio del array.
 
 ```js
 const addItem = content => {
-  const newItems = [...items, { content: content }];
+  const newItems = [...items];
+  newItems.unshift({ content: content });
   setItems(newItems);
 };
 ```
 
-> 💡 ¿Te ha confundido la parte de `[...todos, text ]`? Es el [`spread operator`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax) (u operador de propagación), una característica de ES6 que, en este caso, lo estamos utilizando para hacer una copia del array `todos` y añadiendo al final el valor de `text`. ¿Por qué tenemos que hacer una copia? En JavaScript, los tipos de datos complejos (arrays y objetos) se pasan por referencia, y no por valor, por lo tenemos que hacerlo para tener una copia de `todos` y asegurarnos de que no modificamos el original. [En este artículo tienes más información sobre las diferencias de valor y referencia](https://codeburst.io/explaining-value-vs-reference-in-javascript-647a975e12a0).
+> 💡 ¿Te ha confundido la parte de `[...todos ]`? Es el [`spread operator`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax) (u operador de propagación), una característica de ES6 que, en este caso, lo estamos utilizando para hacer una copia del array `items`. ¿Por qué tenemos que hacer una copia? En JavaScript, los tipos de datos complejos (arrays y objetos) se pasan por referencia, y no por valor, por lo tenemos que hacerlo para tener una copia de `todos` y asegurarnos de que no modificamos el original. [En este artículo tienes más información sobre las diferencias de valor y referencia](https://codeburst.io/explaining-value-vs-reference-in-javascript-647a975e12a0).
 
 Esta función que hemos creado la utilizará el componente del formulario, así que ahora creamos dicho componente, que será `ItemForm` (`src/components/ItemForm.js`).
 
@@ -497,6 +501,8 @@ const handleSubmit = e => {
 
   props.addItem(value);
   setValue("");
+
+  return false;
 };
 ```
 
@@ -545,7 +551,8 @@ También tenemos que actualizar el método `addItem` para que, cuando genere el 
 
 ```js
 const addItem = content => {
-  const newItems = [...items, { content: content, isCompleted: false }];
+  const newItems = [...items];
+  newItems.unshift({ content: content, isCompleted: false });
   setItems(newItems);
 };
 ```
@@ -605,6 +612,83 @@ className={`Item${props.isComplete ? " completed" : ""}`}
 > ```
 >
 > Mucho mejor la segunda, ¿verdad? 😜 [Aquí tienes más información](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals).
+
+Haciendo un último repaso a los componentes, `App` quedaría así:
+
+```js
+import React, { useState } from "react";
+import "./App.css";
+import Item from "./components/Item";
+import ItemForm from "./components/ItemForm";
+
+function App() {
+  const [items, setItems] = useState([
+    {
+      content: "📘 Aprender React",
+      isCompleted: false
+    },
+    {
+      content: "⚛️ Crear mi primera aplicación",
+      isCompleted: false
+    },
+    {
+      content: "🚀 Subirla a GitHub",
+      isCompleted: false
+    }
+  ]);
+
+  const completeItem = index => {
+    const newItems = [...items];
+    newItems[index].isComplete = !newItems[index].isComplete;
+    setItems(newItems);
+  };
+
+  const addItem = content => {
+    const newItems = [...items];
+    newItems.unshift({ content: content, isCompleted: false });
+    setItems(newItems);
+  };
+
+  return (
+    <div className="App">
+      <h1>Todo List</h1>
+      <ItemForm addItem={addItem} />
+      <ul className="ItemList">
+        {items.map((item, index) => (
+          <Item
+            key={index}
+            index={index}
+            content={item.content}
+            completeItem={completeItem}
+            isComplete={item.isComplete}
+          />
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+export default App;
+```
+
+Y el componente `Item`:
+
+```js
+import React from "react";
+
+const Item = props => {
+  return (
+    <li
+      className={`Item${props.isComplete ? " completed" : ""}`}
+      onClick={() => props.completeItem(props.index)}
+    >
+      {props.content}
+    </li>
+  );
+};
+
+export default Item;
+```
 
 Por último, comprueba que funciona correctamente.
 
