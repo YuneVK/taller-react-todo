@@ -1,4 +1,4 @@
-# ⚛️ Taller React: aplicación To-do
+# ⚛️ Taller React: aplicación Todo
 
 Este repo lo vamos a utilizar como segunda parte de la charla [<devs> Taller de React: de 0 a ninja </devs>](https://www.meetup.com/es-ES/WordPress-Madrid/events/263751142/), haciendo ahora un ejercicio práctico.
 
@@ -137,8 +137,8 @@ Esto ya te va resultando familiar, ¿verdad? 😄
 >
 > ```js
 > return (
->   <h1>Elemento</h1>
->   <h2>Elemento</h2>
+>     <h1>Elemento</h1>
+>     <h2>Elemento</h2>
 > );
 > ```
 >
@@ -280,7 +280,7 @@ Ya tenemos nuestro `setup`, así que vamos con los componentes lógicos.
 
 ### 5. Establecer y leer elementos con el state
 
-Comenzamos estableciendo los elementos es nuestro `to-do` que estarán disponibles al iniciar la aplicación.
+Comenzamos estableciendo los elementos es nuestro `todo` que estarán disponibles al iniciar la aplicación.
 
 ¿Recuerdas cuando hablamos antes del `state`? Comentamos que el `state` (o estado) de un componente permite manejar datos propios a lo largo de su ciclo de vida. Es decir, es una información, un dato local de ese componente.
 
@@ -322,7 +322,7 @@ function App() {
 > import React, { useState } from "react";
 > ```
 
-Ya los tenemos establecidos en el componente, ¡así que toca mostrar el listado! Como `todos` es un array, tendremos que recorrerlo para renderizar un elemento por cada uno. Para ello, establece el método `reader()` de tu componente `App` así:
+Ya los tenemos establecidos en el componente, ¡así que toca mostrar el listado! Como `items` es un array, tendremos que recorrerlo para renderizar un elemento por cada uno. Para ello, establece el método `reader()` de tu componente `App` así:
 
 ```js
 return (
@@ -357,9 +357,9 @@ taller-react-todo/
   public/
     index.html
     favicon.ico
-  components/
-  	Item.js
   src/
+    components/
+      Item.js
     App.css
     App.js
     App.test.js
@@ -370,7 +370,7 @@ taller-react-todo/
   README.md
 ```
 
-> 💡 Crear una carpeta `components` no es obligatorio, puedes tener todos tus componentes sueltos en `src`, aunque se suelen poner en una carpeta por convenio, para organizar el código. ¡Sigue unas buenas prácticas y tu yo el futuró te lo agradecerá! 🤗
+> 💡 Crear una carpeta `components` no es obligatorio, puedes tener todos tus componentes sueltos en `src`, aunque se suelen poner en una carpeta por convenio, para organizar el código. ¡Sigue unas buenas prácticas y tu yo del futuro te lo agradecerá! 🤗
 
 `Item.js` corresponde al compontente `Item`, que se utiliará para representar a cada elemento, por lo que recibirá por `props` el contenido.
 
@@ -390,7 +390,7 @@ Ahora tenemos que utilizar este componente en el principal, `App`. Para ello, el
 import Item from "./components/Item";
 ```
 
-Una vez importado, podremos utilizarlo, por lo que volvemos a cambiar el método `render()`:
+Una vez importado, podremos utilizarlo, por lo que volvemos a cambiar el método `render()` de `App`:
 
 ```js
 return (
@@ -409,7 +409,7 @@ Con todos estos cambios, el componente `App` quedaría así:
 
 ```js
 import React from "react";
-import Todo from "./componentes/Todo";
+import Item from "./componentes/Item";
 
 function App() {
   const [todos, setTodos] = useState([
@@ -439,6 +439,18 @@ function App() {
 export default App;
 ```
 
+Y el componente `Item` quedaría así:
+
+```js
+import React from "react";
+
+const Item = props => {
+  return <li className="Item">{props.content}</li>;
+};
+
+export default Item;
+```
+
 Ahora volvemos al navegador y vemos que sigue funcionando correctamente:
 
 > :bulb: **React Developers Tools** es una extensión para [Chrome](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi) y Firefox muy útil para desarrollar con [React](https://addons.mozilla.org/es/firefox/addon/react-devtools/), ya que te permite inspeccionar los componentes, su estado, e incluso modificarlo.
@@ -465,13 +477,13 @@ Básicamente va a ser un formulario con un único `input`, cuyo valor se guardar
 
 > 💡 **Recuerda** que puedes pasar todo tipo de dato mediante `props`. Puedes compararlo a los argumentos de una función, a la que le puedes pasar incluso otra función que quieres que se ejecute en ella.
 
-Siguiendo lo que hemos comentado, cuando ya tengas creado el archivo del componente, primero establece su estado. Recuerda, será el valor del campo del formulario.
+Siguiendo lo que hemos comentado, cuando ya tengas creado el archivo del componente, `ItemForm`, primero establece su estado. Recuerda, será el valor del campo del formulario.
 
 ```js
 const [value, setValue] = useState("");
 ```
 
-A continuación, añade el contenido que renderizará el componente:
+A continuación, añade el contenido que renderizará el componente `ItemForm`:
 
 ```js
 return (
@@ -495,13 +507,12 @@ Vamos a destacar varias cosas del código que acabas de añadir:
 Y ahora sí, por último, vamos a establecer el `handleSubmit`:
 
 ```js
-const handleSubmit = e => {
+const handleSubmit = (e) => {
   e.preventDefault();
   if (!value) return;
 
   props.addItem(value);
   setValue("");
-
   return false;
 };
 ```
@@ -517,7 +528,89 @@ import ItemForm from "./components/ItemForm";
 Y renderizarlo, pasándole la función `addItem`:
 
 ```js
-<ItemForm addItem={addItem} />
+  return (
+    <div className="App">
+      <ItemForm addItem={addItem} />
+      <ul className="ItemList">
+        {items.map((item, index) => (
+          <Item key={index} index={index} content={item.content} />
+        ))}
+      </ul>
+    </div>
+  );
+````
+
+Con todos estos cambios, el componente `App` quedaría así:
+
+```js
+import React from "react";
+import Item from "./componentes/Item";
+import ItemForm from "./componentes/ItemForm";
+
+function App() {
+  const [todos, setTodos] = useState([
+    {
+      content: "📘 Aprender React"
+    },
+    {
+      content: "⚛️ Crear mi primera aplicación"
+    },
+    {
+      content: "🚀 Subirla a GitHub"
+    }
+  ]);
+  
+  const addItem = (content) => {
+    const newItems = [...items, { content: content }];
+    setItems(newItems);
+  };
+
+  return (
+    <div className="App">
+      <ItemForm addItem={addItem} />
+      <ul className="ItemList">
+        {items.map((item, index) => (
+          <Item key={index} index={index} content={item.content} />
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+export default App;
+```
+
+Y el componente `ItemForm` así:
+
+```js
+import React, { useState } from "react";
+
+const ItemForm = props => {
+  const [value, setValue] = useState("");
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    if (!value) return;
+
+    props.addItem(value);
+    setValue("");
+    
+    return false;
+  };
+
+  return (
+    <form className="ItemForm" onSubmit={handleSubmit}>
+      <input
+        type="text"
+        placeholder="Introduce una tarea"
+        value={value}
+        onChange={e => setValue(e.target.value)}
+      />
+    </form>
+  );
+};
+
+export default ItemForm;
 ```
 
 ¡Y ya estaría! Ahora solo te queda comprobar que funciona. 😬
@@ -560,7 +653,7 @@ const addItem = content => {
 A continuación tendremos que escribir la función que se encargará de cambiar ese estado (a `true`si está en `false`, y viceversa), teniendo en cuenta que para ello deberá recibir la posición del array a la que se le quiere cambiar este valor.
 
 ```js
-const completeItem = index => {
+const completeItem = (index) => {
   const newItems = [...items];
   newItems[index].isCompleted = !newItems[index].isCompleted;
   setItems(newItems);
