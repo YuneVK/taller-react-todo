@@ -412,7 +412,7 @@ import React from "react";
 import Item from "./componentes/Item";
 
 function App() {
-  const [todos, setTodos] = useState([
+  const [items, setItems] = useState([
     {
       content: "📘 Aprender React"
     },
