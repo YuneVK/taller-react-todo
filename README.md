@@ -43,7 +43,7 @@ El primer paso es sencillo: ¡hay que configurar nuestro entorno de trabajo!
 
 _It works!_ 😁 ¡Seguimos!
 
-> ⚠️ **¿Tienes algún problema con Git/Node y no puedes seguir estos pasos?** ¡No te preocupes! Hemos creado este repo de Codesandbox [❗️AÑADIR ENLACE] para que no te pierdas nada del taller. Así puedes seguirlo, y cuando termine vemos cómo podemos arreglar esos problemas. 😉
+> ⚠️ **¿Tienes algún problema con Git/Node y no puedes seguir estos pasos?** ¡No te preocupes! Hemos creado este repo de [Codesandbox](https://codesandbox.io/s/create-react-app-0q9nn?fontsize=14) para que no te pierdas nada del taller. Así puedes seguirlo, y cuando termine vemos cómo podemos arreglar esos problemas. 😉
 
 ### 2. Destripando la estructura del proyecto
 
