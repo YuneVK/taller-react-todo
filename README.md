@@ -691,7 +691,7 @@ const Item = props => {
 Vale, ya tenemos configurado el `state` y vinculada la función que se encarga de modificarlo. Pero, ¿cómo vamos a saber si está completada o no? Para ello, tenemos definida en CSS la clase `is-completes`, que define esos estilos, por lo que, cuando `isCompleted` sea `true`, ese componente deberá llevar esa clase:
 
 ```js
-className={`Item${props.isComplete ? " completed" : ""}`}
+className={`Item${props.isCompleted ? " completed" : ""}`}
 ```
 
 > 💡 Hemos usado otra funcionalidad de ES6, los `backticks`. Son `template strings`, es decir, plantillas de cadenas de texto a través de las cuales podemos concatenar `strings` con variables o expresiones con una sintaxis más fácil de leer. Aquí tienes un ejemplo
@@ -732,7 +732,7 @@ function App() {
 
   const completeItem = index => {
     const newItems = [...items];
-    newItems[index].isComplete = !newItems[index].isComplete;
+    newItems[index].isCompleted = !newItems[index].isCompleted;
     setItems(newItems);
   };
 
@@ -753,7 +753,7 @@ function App() {
             index={index}
             content={item.content}
             completeItem={completeItem}
-            isComplete={item.isComplete}
+            isCompleted={item.isCompleted}
           />
         ))}
       </ul>
@@ -772,7 +772,7 @@ import React from "react";
 const Item = props => {
   return (
     <li
-      className={`Item${props.isComplete ? " completed" : ""}`}
+      className={`Item${props.isCompleted ? " completed" : ""}`}
       onClick={() => props.completeItem(props.index)}
     >
       {props.content}
