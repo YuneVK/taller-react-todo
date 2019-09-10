@@ -398,7 +398,7 @@ return (
     <h1>Todo List</h1>
     <ul className="ItemList">
       {todos.map((content, index) => (
-        <Todo key={index} index={index} content={content} />
+        <Item key={index} index={index} content={item.content} />
       ))}
     </ul>
   </div>
