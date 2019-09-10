@@ -182,7 +182,7 @@ También vamos a hacer una limpieza de su archivo de estilos, `App.css`, borrand
 
 Sí, estamos en _front_, así que, aunque no nos centraremos en los estilos de la aplicación, sí vamos a intentar hacer las cosas con una estética mínimamente decente. 😜
 
-Hemos preparado este CSS para que lo añadas a `App.css`, con las clases que utilizaremos a continuación:
+Hemos preparado este CSS para que insertes `App.css`, con las clases que utilizaremos a continuación:
 
 ```css
 .App {
@@ -451,7 +451,7 @@ const Item = props => {
 export default Item;
 ```
 
-Ahora volvemos al navegador y vemos que sigue funcionando correctamente:
+Ahora volvemos al navegador y vemos que sigue funcionando correctamente.
 
 > :bulb: **React Developers Tools** es una extensión para [Chrome](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi) y Firefox muy útil para desarrollar con [React](https://addons.mozilla.org/es/firefox/addon/react-devtools/), ya que te permite inspeccionar los componentes, su estado, e incluso modificarlo.
 
@@ -840,6 +840,7 @@ Por último, te dejamos algunos enlaces de interés:
 
 - **React Developer Tools**: la extensión para [Chrome](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi) y [Firefox](https://addons.mozilla.org/es/firefox/addon/react-devtools/) que te permite inspeccionar los elementos de React.
 - [**React Status**](https://react.statuscode.com/): una newsletter semanal con artículos, tutoriales y novedades del ecosistema de React. ¡Muy útil para estar siempre al día!
+- [**💻 JavaScript && React**](https://docs.frontity.org/javascript-and-and-react): una guía muy recomendable de [Frontity](https://frontity.org/) para repasar los fundamentos de JavaScript y React.
 
 ## ¡Pero esto no termina aquí!
 
