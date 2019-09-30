@@ -397,7 +397,7 @@ return (
   <div className="App">
     <h1>Todo List</h1>
     <ul className="ItemList">
-      {todos.map((content, index) => (
+      {items.map((item, index) => (
         <Item key={index} index={index} content={item.content} />
       ))}
     </ul>
@@ -408,7 +408,7 @@ return (
 Con todos estos cambios, el componente `App` quedaría así:
 
 ```js
-import React from "react";
+import React, { useState } from "react";
 import Item from "./componentes/Item";
 
 function App() {
@@ -543,12 +543,12 @@ Y renderizarlo, pasándole la función `addItem`:
 Con todos estos cambios, el componente `App` quedaría así:
 
 ```js
-import React from "react";
+import React, { useState } from "react";
 import Item from "./componentes/Item";
 import ItemForm from "./componentes/ItemForm";
 
 function App() {
-  const [todos, setTodos] = useState([
+  const [items, setItems] = useState([
     {
       content: "📘 Aprender React"
     },
